@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: Hindutithi Panchang API
+  version: "1.0.0"
+  description: |
+    REST API for the Hindutithi Panchang demo app, powered by the `vittix/panchang` package.
+
+    All endpoints are protected by the `panchang.api.key` middleware. Pass your API key in
+    the `X-API-KEY` request header. Keys can be generated at `/api-keys` when signed in.
+
+    All datetime values in responses use **ISO 8601 / DATE_ATOM** format.
+    All responses are `application/json`.
+
+servers:
+  - url: http://localhost:8000
+    description: Local development (php artisan serve)
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+
+  /api:
+    get:
+      operationId: api.index
+      summary: API index
+      description: Lists all available Panchang API endpoints with their supported query parameters.
+      responses:
+        "200":
+          description: API endpoint list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:    { type: string, example: "Hindutithi Panchang Test API" }
+                  version: { type: string, example: "v1" }
+                  endpoints:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        method:      { type: string, example: "GET" }
+                        path:        { type: string, example: "/api/day" }
+                        description: { type: string }
+                        query:
+                          type: array
+                          items: { type: string }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/examples:
+    get:
+      operationId: api.examples
+      summary: Example URLs
+      description: Returns ready-to-copy API URLs pre-filled with the supplied (or default) input values.
+      parameters:
+        - $ref: "#/components/parameters/date"
+        - $ref: "#/components/parameters/time"
+        - $ref: "#/components/parameters/tz"
+        - $ref: "#/components/parameters/lat"
+        - $ref: "#/components/parameters/lon"
+        - $ref: "#/components/parameters/elev"
+      responses:
+        "200":
+          description: Example URLs keyed by endpoint name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  base_input: { $ref: "#/components/schemas/InputParams" }
+                  examples:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name: { type: string }
+                        url:  { type: string, format: uri }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/day:
+    get:
+      operationId: api.day
+      summary: Daily Panchang
+      description: |
+        Returns the sunrise-anchored daily Panchang for a given date, timezone, and location.
+
+        Includes: solar events (sunrise, solar noon, sunset), Tithi, Nakshatra, Pada, Yoga, Karana,
+        Vara, element end-times, second Tithi, lunar month, Paksha, and Adhika Masa flag.
+        Results are cached forever by date + location key.
+      parameters:
+        - $ref: "#/components/parameters/date"
+        - $ref: "#/components/parameters/tz"
+        - $ref: "#/components/parameters/lat"
+        - $ref: "#/components/parameters/lon"
+        - $ref: "#/components/parameters/elev"
+      responses:
+        "200":
+          description: Daily Panchang payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DayPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/moment:
+    get:
+      operationId: api.moment
+      summary: Panchang at a moment
+      description: |
+        Returns exact planetary positions and Panchang elements for a specific date + time instant.
+
+        Includes: Tithi, Nakshatra, Pada, Yoga, Karana, Vara, Sun longitude, Moon longitude,
+        Ayanamsha, and an accuracy assessment (estimated angular/time error, near-boundary flag).
+        Results are cached forever by moment + location key.
+      parameters:
+        - $ref: "#/components/parameters/date"
+        - $ref: "#/components/parameters/time"
+        - $ref: "#/components/parameters/tz"
+        - $ref: "#/components/parameters/lat"
+        - $ref: "#/components/parameters/lon"
+        - $ref: "#/components/parameters/elev"
+      responses:
+        "200":
+          description: Moment Panchang payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MomentPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/calendar:
+    get:
+      operationId: api.calendar
+      summary: Hindu calendar summary
+      description: |
+        Returns the Hindu calendar summary for a given date: Amanta and Purnimanta month names,
+        Vikram Samvat, Shaka Samvat, Adhika Masa flag, and timestamps for the previous new moon,
+        next new moon, and next full moon.
+        Results are cached forever by date + timezone key.
+      parameters:
+        - $ref: "#/components/parameters/date"
+        - $ref: "#/components/parameters/tz"
+      responses:
+        "200":
+          description: Calendar payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/muhurta:
+    get:
+      operationId: api.muhurta
+      summary: Day Muhurtas
+      description: |
+        Returns the named daytime Muhurtas for the given date and location, calculated from
+        sunrise to sunset. If sunrise or sunset cannot be determined, an empty `muhurtas` array
+        is returned alongside the day data.
+        The day data is cached forever; Muhurta objects are computed per-request from cached day.
+      parameters:
+        - $ref: "#/components/parameters/date"
+        - $ref: "#/components/parameters/tz"
+        - $ref: "#/components/parameters/lat"
+        - $ref: "#/components/parameters/lon"
+        - $ref: "#/components/parameters/elev"
+      responses:
+        "200":
+          description: Muhurta payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  day:
+                    $ref: "#/components/schemas/DayPayload"
+                  muhurtas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:  { type: string, example: "Brahma" }
+                        start: { type: string, format: date-time, example: "2026-08-03T05:16:00+05:30" }
+                        end:   { type: string, format: date-time, example: "2026-08-03T06:04:00+05:30" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/electional:
+    get:
+      operationId: api.electional
+      summary: Electional capabilities
+      description: |
+        Returns the evaluator class name and the list of available electional astrology check
+        method names exposed by the installed `vittix/panchang` version.
+      responses:
+        "200":
+          description: Electional capability payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluator:
+                    type: string
+                    description: Fully-qualified class name of the electional evaluator
+                    example: "Vittix\\Panchang\\Electional\\ElectionalEvaluator"
+                  checks:
+                    type: array
+                    description: Available method names on the evaluator
+                    items: { type: string }
+                    example:
+                      - hasAmritSiddhiYoga
+                      - hasSarvarthaSiddhiYoga
+                      - hasGuruPushyaYoga
+                      - hasRaviPushyaYoga
+                      - getDishaShool
+                      - isPanchakaDosha
+                      - isBhadraActive
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Personal API key generated at /api-keys. Required when key protection is enabled.
+
+  parameters:
+    date:
+      name: date
+      in: query
+      description: Civil date for the calculation (YYYY-MM-DD). Defaults to today.
+      schema: { type: string, format: date, example: "2026-08-03" }
+    time:
+      name: time
+      in: query
+      description: Time of day (HH:MM), used for moment-based endpoints. Defaults to 06:00.
+      schema: { type: string, example: "06:00" }
+    tz:
+      name: tz
+      in: query
+      description: PHP timezone identifier. Defaults to Asia/Kolkata.
+      schema: { type: string, example: "Asia/Kolkata" }
+    lat:
+      name: lat
+      in: query
+      description: Latitude in decimal degrees. Defaults to 23.0225 (Ahmedabad).
+      schema: { type: number, format: float, example: 23.0225 }
+    lon:
+      name: lon
+      in: query
+      description: Longitude in decimal degrees. Defaults to 72.5714 (Ahmedabad).
+      schema: { type: number, format: float, example: 72.5714 }
+    elev:
+      name: elev
+      in: query
+      description: Elevation above sea level in metres. Defaults to 0.
+      schema: { type: number, format: float, example: 0 }
+
+  schemas:
+
+    InputParams:
+      type: object
+      properties:
+        date:  { type: string, format: date }
+        time:  { type: string }
+        tz:    { type: string }
+        lat:   { type: number }
+        lon:   { type: number }
+        elev:  { type: number }
+
+    SolarEvents:
+      type: object
+      properties:
+        sunrise:   { type: string, format: date-time, nullable: true }
+        solarNoon: { type: string, format: date-time, nullable: true }
+        sunset:    { type: string, format: date-time, nullable: true }
+
+    DayPayload:
+      type: object
+      properties:
+        date:     { type: string, format: date-time }
+        timezone: { type: string, example: "Asia/Kolkata" }
+        location:
+          type: object
+          properties:
+            latitude:        { type: number }
+            longitude:       { type: number }
+            elevationMeters: { type: number }
+        solarEvents:         { $ref: "#/components/schemas/SolarEvents" }
+        tithiAtSunrise:      { type: string, nullable: true, example: "Purnima" }
+        nakshatraAtSunrise:  { type: string, nullable: true, example: "Shravana" }
+        padaAtSunrise:       { type: integer, nullable: true, example: 2 }
+        yogaAtSunrise:       { type: string, nullable: true, example: "Siddhi" }
+        karanaAtSunrise:     { type: string, nullable: true, example: "Vishti" }
+        vara:                { type: string, nullable: true, example: "Ravivara" }
+        tithiEndsAt:         { type: string, format: date-time, nullable: true }
+        nakshatraEndsAt:     { type: string, format: date-time, nullable: true }
+        yogaEndsAt:          { type: string, format: date-time, nullable: true }
+        karanaEndsAt:        { type: string, format: date-time, nullable: true }
+        tithiSecond:         { type: string, nullable: true }
+        tithiSecondEndsAt:   { type: string, format: date-time, nullable: true }
+        lunarMonth:          { type: string, nullable: true, example: "Shravana" }
+        paksha:              { type: string, nullable: true, example: "Shukla" }
+        isAdhikaMasa:        { type: boolean }
+
+    MomentPayload:
+      type: object
+      properties:
+        instant:
+          type: object
+          properties:
+            utc:      { type: string, format: date-time }
+            local:    { type: string, format: date-time }
+            timezone: { type: string }
+        tithi:        { type: string, nullable: true }
+        nakshatra:    { type: string, nullable: true }
+        pada:         { type: integer, nullable: true }
+        yoga:         { type: string, nullable: true }
+        karana:       { type: string, nullable: true }
+        vara:         { type: string, nullable: true }
+        sunLongitude:  { type: number, format: float, description: "Sidereal sun longitude in degrees" }
+        moonLongitude: { type: number, format: float, description: "Sidereal moon longitude in degrees" }
+        ayanamsha:     { type: number, format: float, description: "Lahiri ayanamsha in degrees" }
+        accuracy:
+          type: object
+          properties:
+            estimatedAngularErrorDegrees: { type: number }
+            estimatedTimeErrorSeconds:    { type: number }
+            nearBoundary:                 { type: boolean }
+
+    CalendarPayload:
+      type: object
+      properties:
+        amantaMonth:     { type: string, nullable: true, example: "Shravana" }
+        purnimantaMonth: { type: string, nullable: true, example: "Bhadrapada" }
+        isAdhikaMasa:    { type: boolean }
+        previousNewMoon: { type: string, format: date-time, nullable: true }
+        nextNewMoon:     { type: string, format: date-time, nullable: true }
+        nextFullMoon:    { type: string, format: date-time, nullable: true }
+        vikramSamvat:    { type: integer, example: 2082 }
+        shakaSamvat:     { type: integer, example: 1948 }
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: { type: string, example: "Unauthorized" }

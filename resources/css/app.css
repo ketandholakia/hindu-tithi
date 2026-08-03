@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ── Theme tokens (Tailwind v4 CSS-based config) ─────────────────────── */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Brand color palette */
+    --color-brand-50:  oklch(0.97 0.02 85);
+    --color-brand-100: oklch(0.93 0.05 85);
+    --color-brand-200: oklch(0.87 0.09 80);
+    --color-brand-300: oklch(0.80 0.14 75);
+    --color-brand-400: oklch(0.73 0.17 70);
+    --color-brand-500: oklch(0.65 0.20 65);
+    --color-brand-600: oklch(0.55 0.18 60);
+    --color-brand-700: oklch(0.43 0.14 55);
+    --color-brand-800: oklch(0.33 0.10 55);
+    --color-brand-900: oklch(0.23 0.07 55);
+
+    /* Radius */
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+}
+
+/* ── Global base styles ──────────────────────────────────────────────── */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: theme('colors.slate.950');
+        color: theme('colors.slate.100');
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Custom scrollbar for dark theme */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: oklch(0.35 0.01 250); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: oklch(0.45 0.01 250); }
+
+    /* Smooth focus rings */
+    *:focus-visible {
+        outline: 2px solid oklch(0.73 0.17 70);
+        outline-offset: 2px;
+    }
+
+    /* Better date/time inputs on dark bg */
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"] {
+        color-scheme: dark;
+    }
+
+    /* number input: hide arrows */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"] { -moz-appearance: textfield; }
+}
+
+/* ── Utility components ──────────────────────────────────────────────── */
+@layer components {
+    /* Glassmorphism card */
+    .card-glass {
+        background-color: color-mix(in oklch, theme('colors.slate.900') 70%, transparent);
+        border: 1px solid color-mix(in oklch, white 10%, transparent);
+        border-radius: var(--radius-2xl);
+        backdrop-filter: blur(12px);
+    }
+
+    /* Section badge label */
+    .section-badge {
+        display: inline-block;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Data row inside cards */
+    .data-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid color-mix(in oklch, white 5%, transparent);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-row dt { font-size: 0.875rem; color: theme('colors.slate.400'); }
+    .data-row dd { font-size: 0.875rem; font-weight: 500; color: white; }
+}
