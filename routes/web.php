@@ -12,6 +12,18 @@ Route::get('/home', [DemoController::class, 'home'])->name('hindutithi.home');
 Route::get('/help', function () {
     return view('hindutithi.help');
 })->name('hindutithi.help');
+Route::get('/accuracy', function () {
+    return view('hindutithi.accuracy');
+})->name('hindutithi.accuracy');
+Route::get('/astrology', function () {
+    return view('hindutithi.astrology');
+})->name('hindutithi.astrology');
+Route::get('/kundli', function () {
+    return view('hindutithi.kundli');
+})->name('hindutithi.kundli');
+Route::get('/whats-new', function () {
+    return view('hindutithi.whats_new');
+})->name('hindutithi.whats_new');
 Route::get('/api/docs', function () {
     return view('api.docs');
 })->name('api.docs');

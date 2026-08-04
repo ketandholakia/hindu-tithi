@@ -19,6 +19,9 @@
                     ['hindutithi.moment',   'Moment'],
                     ['hindutithi.calendar', 'Calendar'],
                     ['hindutithi.festivals','Festivals'],
+                    ['hindutithi.astrology','Astrology'],
+                    ['hindutithi.kundli','Kundli'],
+                    ['hindutithi.accuracy','Accuracy'],
                     ['hindutithi.help',     'Help'],
                 ] as [$route, $label])
                     <a href="{{ route($route) }}"
@@ -93,6 +96,9 @@
                 ['hindutithi.moment',   'Moment'],
                 ['hindutithi.calendar', 'Calendar'],
                 ['hindutithi.festivals','Festivals'],
+                ['hindutithi.astrology','Astrology'],
+                ['hindutithi.kundli','Kundli'],
+                ['hindutithi.accuracy','Accuracy'],
                 ['hindutithi.help',     'Help'],
                 ['api.docs',            'API Docs'],
             ] as [$route, $label])

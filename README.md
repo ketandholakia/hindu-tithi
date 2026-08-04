@@ -1,3 +1,100 @@
+# Vittix Vedic Panchang
+
+> Professional Vedic Panchang & Astrology engine for PHP, Laravel and REST APIs.
+
+Vittix Vedic Panchang provides accurate Panchang (tithi, nakshatra, yoga, muhurta), festival calendars, and a full Vedic astrology (Kundli) module with planetary positions, houses, and chart generation. This repository also includes the HinduTithi demo site that showcases the package and REST API.
+
+## Features
+
+- Panchang
+  - Daily Panchang, Tithi, Nakshatra, Yoga, Karana, Vara
+  - Sunrise / Sunset, Moonrise / Moonset
+  - Muhurta windows, Festival calendar, Sankranti, Ekadashi
+- Astrology
+  - Kundli / Birth chart generation
+  - Planet positions and longitudes
+  - Ascendant (Lagna) and house calculations
+  - Rashi, Nakshatra, basic yogas
+- Platform & APIs
+  - PHP library and Laravel package
+  - REST JSON APIs for Panchang and Astrology
+  - Timezone-aware calculations and DST support
+
+## Installation
+
+Install via Composer:
+
+```bash
+composer require vittix/panchang
+```
+
+Quick start (Panchang):
+
+```php
+use Vittix\Panchang\Panchang;
+
+$panchang = Panchang::today('Mumbai');
+echo $panchang->tithi->name;
+echo $panchang->nakshatra->name;
+echo $panchang->sunrise;
+```
+
+Quick start (Kundli):
+
+```php
+use Vittix\Panchang\Kundli;
+
+$kundli = Kundli::fromBirthDetails([
+    'date' => '1990-01-01',
+    'time' => '10:30',
+    'lat' => 19.0760,
+    'lon' => 72.8777,
+    'tz' => 'Asia/Kolkata',
+]);
+
+echo $kundli->ascendant->name;
+echo $kundli->planets->get('sun')->longitude;
+```
+
+## API Examples
+
+GET /api/day — returns JSON Panchang for a date & location.
+
+GET /api/kundli?sdate=1990-01-01&time=10:30&lat=19.076&lon=72.8777&tz=Asia/Kolkata — returns Kundli JSON.
+
+Example JSON (Panchang):
+
+```json
+{
+  "tithi": "Ekadashi",
+  "nakshatra": "Rohini",
+  "sunrise": "06:08",
+  "sunset": "18:54"
+}
+```
+
+## Documentation
+
+See the documentation site or `/api/docs` for full API reference, installation notes, accuracy details, and examples.
+
+## Roadmap
+
+- v2.0 — Kundli & Astrology module (this release)
+- v2.1 — Dasha/vimshottari, Transit (Gochar) APIs, additional yogas
+- v2.2 — Multi-language support, SVG charts, PDF reports
+
+## Contributing
+
+Please read `CONTRIBUTING.md` (if present) and open issues or pull requests on GitHub. Follow coding standards and include tests for new features.
+
+## License
+
+MIT — see `LICENSE` in the repository.
+
+## Changelog
+
+See `CHANGELOG.md` for release history and migration notes.
+
 # Hindutithi Panchang Demo
 
 A Laravel application that demonstrates the features of the [`vittix/panchang`](https://packagist.org/packages/vittix/panchang) PHP package — including daily Panchang, Hindu calendar, Muhurta, Kundali, Vimshottari Dasha, Yogas, Festivals, and a JSON REST API.
