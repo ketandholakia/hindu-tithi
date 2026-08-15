@@ -25,11 +25,12 @@ class TelegramBotService
      */
     public function handleUpdate(array $update): void
     {
-        if (!isset($update['message'])) {
+        $message = $update['message'] ?? $update['edited_message'] ?? null;
+        
+        if (!$message) {
             return;
         }
 
-        $message = $update['message'];
         $chatId = $message['chat']['id'];
         
         $text = $message['text'] ?? '';
@@ -44,8 +45,8 @@ class TelegramBotService
             return;
         }
 
-        // Parse command and arguments
-        $parts = explode(' ', trim($text));
+        // Parse command and arguments safely ignoring multiple spaces
+        $parts = preg_split('/\s+/', trim($text));
         $command = strtolower(array_shift($parts));
 
         switch ($command) {
