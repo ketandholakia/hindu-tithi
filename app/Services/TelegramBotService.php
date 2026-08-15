@@ -115,10 +115,10 @@ class TelegramBotService
             $panchangEngine = app(Panchang::class);
             $panchang = $panchangEngine->day($datetime, $location);
 
-            $tithi = $panchang->tithi->name ?? 'Unknown';
-            $nakshatra = $panchang->nakshatra->name ?? 'Unknown';
-            $yoga = $panchang->yoga->name ?? 'Unknown';
-            $karana = $panchang->karana->name ?? 'Unknown';
+            $tithi = $panchang->tithiAtSunrise->nameEnglish() ?? 'Unknown';
+            $nakshatra = $panchang->nakshatraAtSunrise->nameEnglish() ?? 'Unknown';
+            $yoga = $panchang->yogaAtSunrise->nameEnglish() ?? 'Unknown';
+            $karana = $panchang->karanaAtSunrise->nameEnglish() ?? 'Unknown';
 
             $response = "🕉 *Panchang for {$date->format('d M Y')}*\n"
                       . "📍 Location: `$lat, $lon`\n\n"
