@@ -98,6 +98,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/api-tokens/{apiKey}', [App\Http\Controllers\Admin\AdminApiTokenController::class, 'show'])->name('api-tokens.show');
     Route::post('/api-tokens/{apiKey}/revoke', [App\Http\Controllers\Admin\AdminApiTokenController::class, 'revoke'])->name('api-tokens.revoke');
     Route::patch('/api-tokens/{apiKey}/limits', [App\Http\Controllers\Admin\AdminApiTokenController::class, 'updateLimits'])->name('api-tokens.update-limits');
+    
+    // Telegram Config
+    Route::get('/telegram', [App\Http\Controllers\Admin\TelegramConfigController::class, 'index'])->name('telegram.index');
+    Route::post('/telegram/webhook', [App\Http\Controllers\Admin\TelegramConfigController::class, 'setWebhook'])->name('telegram.webhook.set');
+    Route::delete('/telegram/webhook', [App\Http\Controllers\Admin\TelegramConfigController::class, 'deleteWebhook'])->name('telegram.webhook.delete');
 });
 
 require __DIR__.'/auth.php';

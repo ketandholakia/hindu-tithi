@@ -51,6 +51,17 @@
                 <h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">User Management</h4>
                 <p class="text-sm text-[var(--color-text-muted)]">View and manage registered users and their details.</p>
             </a>
+            
+            <!-- Telegram Bot Config -->
+            <a href="{{ route('admin.telegram.index') }}" class="block card-glass bg-[var(--color-bg-surface)] p-6 rounded-2xl hover:border-[var(--color-brand-saffron)] transition">
+                <div class="flex items-center">
+                    <div class="h-12 w-12 rounded-full bg-[#0088cc]/10 flex items-center justify-center text-[#0088cc] text-2xl mb-4">
+                        🤖
+                    </div>
+                </div>
+                <h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Telegram Bot</h4>
+                <p class="text-sm text-[var(--color-text-muted)]">Manage your Telegram bot webhook and configuration.</p>
+            </a>
 
         </div>
     </div>

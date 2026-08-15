@@ -34,7 +34,7 @@ class TelegramWebhookController extends Controller
         try {
             $update = $request->all();
             $this->botService->handleUpdate($update);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error("Error processing Telegram update: " . $e->getMessage());
         }
 

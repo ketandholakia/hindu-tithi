@@ -128,7 +128,7 @@ class TelegramBotService
 
             $this->sendMessage($chatId, $response, 'Markdown');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error("Telegram /panchang error: " . $e->getMessage());
             $this->sendMessage($chatId, "❌ Error calculating Panchang. Ensure format is `/panchang YYYY-MM-DD lat,lon`");
         }
@@ -185,7 +185,7 @@ class TelegramBotService
 
             $this->sendMessage($chatId, $response, 'Markdown');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error("Telegram /kundli error: " . $e->getMessage());
             $this->sendMessage($chatId, "❌ Error calculating Kundli. Ensure format is `/kundli YYYY-MM-DD HH:MM lat,lon`");
         }
@@ -253,7 +253,7 @@ class TelegramBotService
 
             $this->sendMessage($chatId, $response, 'Markdown');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error("Telegram /festival error: " . $e->getMessage());
             $this->sendMessage($chatId, "❌ Error calculating festivals. Ensure format is `/festival YYYY-MM-DD lat,lon`");
         }
