@@ -271,6 +271,267 @@ class TelegramBotService
         }
     }
 
+    private function handleMuhurta(int|string $chatId, array $args): void
+    {
+        try {
+            $dateStr = 'today';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $dateStr = $args[0];
+                    if (isset($args[1])) {
+                        [$lat, $lon] = explode(',', $args[1]);
+                    }
+                }
+            }
+
+            $date = $this->parseDate($dateStr);
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $day = $panchangEngine->day($datetime, $location);
+            
+            if (!$day->solarEvents->sunrise || !$day->solarEvents->sunset) {
+                $this->sendMessage($chatId, "❌ Could not determine sunrise/sunset for this location.");
+                return;
+            }
+
+            $muhurtaCalc = $panchangEngine->muhurta();
+            $classical = new \Vittix\Panchang\Muhurta\ClassicalMuhurta($muhurtaCalc);
+            $weekdayIndex = (int) $date->format('w');
+            
+            $abhijit = $classical->getAbhijit($day->solarEvents->sunrise, $day->solarEvents->sunset);
+            $rahu = $classical->getRahuKaal($day->solarEvents->sunrise, $day->solarEvents->sunset, $weekdayIndex);
+            $yama = $classical->getYamaganda($day->solarEvents->sunrise, $day->solarEvents->sunset, $weekdayIndex);
+            $gulika = $classical->getGulika($day->solarEvents->sunrise, $day->solarEvents->sunset, $weekdayIndex);
+
+            $fmt = fn($w) => "{$w->start->format('H:i')} - {$w->end->format('H:i')}";
+
+            $response = "⏳ *Muhurta Timings for {$date->format('d M Y')}*
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . "✅ *Abhijit:* " . $fmt($abhijit) . "
+"
+                      . "❌ *Rahu Kaal:* " . $fmt($rahu) . "
+"
+                      . "⚠️ *Yamaganda:* " . $fmt($yama) . "
+"
+                      . "⚠️ *Gulika Kaal:* " . $fmt($gulika);
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /muhurta error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Muhurta. Format: `/muhurta YYYY-MM-DD lat,lon`");
+        }
+    }
+
+    private function handleAscendant(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $timeStr = implode(' ', $args);
+                    // Extremely basic check for lat/lon at end
+                    $last = end($args);
+                    if (str_contains($last, ',')) {
+                        [$lat, $lon] = explode(',', $last);
+                        $timeStr = trim(str_replace($last, '', $timeStr));
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $ascendant = $panchangEngine->ascendant($datetime, $location);
+
+            $response = "🌅 *Ascendant (Lagna)*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . "♈ *Sign:* {$ascendant->rashi->nameEnglish()}
+"
+                      . "📐 *Longitude:* " . round($ascendant->longitude, 2) . "°";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /ascendant error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Ascendant. Format: `/ascendant YYYY-MM-DD HH:MM lat,lon`");
+        }
+    }
+
+    private function handleYogas(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $timeStr = implode(' ', $args);
+                    $last = end($args);
+                    if (str_contains($last, ',')) {
+                        [$lat, $lon] = explode(',', $last);
+                        $timeStr = trim(str_replace($last, '', $timeStr));
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $yogas = $panchangEngine->yogas($datetime, $location);
+
+            $names = array_map(fn($y) => "• " . $y->name, $yogas);
+            $yogaList = empty($names) ? "No major classical Yogas found." : implode("
+", $names);
+
+            $response = "✨ *Astrological Yogas*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . $yogaList;
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /yogas error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error detecting Yogas. Format: `/yogas YYYY-MM-DD HH:MM lat,lon`");
+        }
+    }
+
+    private function handleChoghadiya(int|string $chatId, array $args): void
+    {
+        try {
+            $dateStr = 'today';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $dateStr = $args[0];
+                    if (isset($args[1])) {
+                        [$lat, $lon] = explode(',', $args[1]);
+                    }
+                }
+            }
+
+            $date = $this->parseDate($dateStr);
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $day = $panchangEngine->day($datetime, $location);
+            
+            if (!$day->solarEvents->sunrise || !$day->solarEvents->sunset) {
+                $this->sendMessage($chatId, "❌ Could not determine sunrise/sunset for this location.");
+                return;
+            }
+            
+            // Note: getNightChoghadiya requires next sunrise. 
+            // We get tomorrow's panchang for next sunrise.
+            $tomorrow = $date->copy()->addDay();
+            $tomorrowDatetime = new DateTimeImmutable($tomorrow->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $tomorrowDay = $panchangEngine->day($tomorrowDatetime, $location);
+
+            $muhurtaCalc = $panchangEngine->muhurta();
+            $weekdayIndex = (int) $date->format('w');
+            
+            $dayChog = $muhurtaCalc->getDayChoghadiya($day->solarEvents->sunrise, $day->solarEvents->sunset, $weekdayIndex);
+            $nightChog = $muhurtaCalc->getNightChoghadiya($day->solarEvents->sunset, $tomorrowDay->solarEvents->sunrise, $weekdayIndex);
+
+            $fmt = fn($w) => str_pad($w->name, 8) . " {$w->start->format('H:i')} - {$w->end->format('H:i')}";
+            
+            $dayList = array_map($fmt, $dayChog);
+            $nightList = array_map($fmt, $nightChog);
+
+            $response = "🕒 *Choghadiya Timings for {$date->format('d M Y')}*
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . "☀️ *Day Choghadiya:*
+`"
+                      . implode("
+", $dayList) . "`
+
+"
+                      . "🌙 *Night Choghadiya:*
+`"
+                      . implode("
+", $nightList) . "`";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /choghadiya error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Choghadiya. Format: `/choghadiya YYYY-MM-DD lat,lon`");
+        }
+    }
+
+    private function handleRashi(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            
+            if (count($args) > 0) {
+                $timeStr = implode(' ', $args);
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+
+            $panchangEngine = app(Panchang::class);
+            $rashi = $panchangEngine->janmarashi($datetime);
+
+            $response = "🌙 *Moon Sign (Janma Rashi)*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+
+"
+                      . "♋ *Rashi:* {$rashi->nameEnglish()}
+";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /rashi error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Rashi. Format: `/rashi YYYY-MM-DD HH:MM`");
+        }
+    }
+
     private function sendMessage(int|string $chatId, string $text, string $parseMode = ''): void
     {
         if (empty($this->token)) {
