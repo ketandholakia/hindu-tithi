@@ -19,6 +19,8 @@ Vittix Vedic Panchang provides accurate Panchang (tithi, nakshatra, yoga, muhurt
   - PHP library and Laravel package
   - REST JSON APIs for Panchang and Astrology
   - Timezone-aware calculations and DST support
+  - Comprehensive Admin Dashboard
+  - API Key Management, Throttling, and Usage Analytics
 
 ## Installation
 
@@ -106,7 +108,7 @@ A Laravel application that demonstrates the features of the [`vittix/panchang`](
 | Layer | Technology |
 |---|---|
 | Backend | PHP 8.3 · Laravel 13 |
-| Astrology engine | `vittix/panchang ^1.1` |
+| Astrology engine | `vittix/panchang ^2.4` |
 | Auth scaffolding | Laravel Breeze |
 | Frontend styling | Tailwind CSS **v4** (via `@tailwindcss/vite`) |
 | JS interactivity | Alpine.js v3 |
@@ -200,6 +202,7 @@ All pages share a persistent **session form** at the top that lets you change th
 | `/festivals` | Festivals | Upcoming festivals for the next 120 days |
 | `/electional` | Electional | Available electional astrology checks |
 | `/help` | Help | Usage notes and tips |
+| `/admin` | Admin Dashboard | System management, API keys, and user administration |
 
 > **Note:** Pages that require features not present in the installed package version will show an "unavailable" notice rather than throwing an error.
 
@@ -253,7 +256,9 @@ The full OpenAPI 3.1 specification is at [`openapi.yaml`](./openapi.yaml) and is
 
 ### API Keys
 
-Authenticated users can generate and revoke personal API keys at `/api-keys`. The full key value is shown **only once** on creation — store it securely.
+Authenticated users can generate and manage their personal API keys via their Dashboard.
+Administrators can oversee all API tokens, adjust rate limits, and view usage statistics via the `/admin` dashboard.
+The full key value is shown **only once** on creation — store it securely.
 
 ---
 
