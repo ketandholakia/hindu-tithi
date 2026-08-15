@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use Vittix\Panchang\Panchang;
 use Vittix\Panchang\ValueObject\GeoLocation;
 use DateTimeImmutable;
@@ -35,13 +36,17 @@ class TelegramBotService
         
         $text = $message['text'] ?? '';
         
-        if (empty($text)) {
-            // Handle location if sent as attachment instead of text
-            if (isset($message['location'])) {
-                $lat = $message['location']['latitude'];
-                $lon = $message['location']['longitude'];
-                $this->sendMessage($chatId, "📍 Received location: `$lat, $lon`\nYou can use these coordinates with `/panchang` or `/kundli`.\nExample: `/panchang today $lat,$lon`", 'Markdown');
-            }
+        // Handle native location shares
+        if (isset($message['location'])) {
+            $lat = $message['location']['latitude'];
+            $lon = $message['location']['longitude'];
+            
+            // Treat location sharing as a panchang request for today at that spot
+            $this->handlePanchang($chatId, ['today', "{$lat},{$lon}"]);
+            return;
+        }
+
+        if (empty($text) || !str_starts_with($text, '/')) {
             return;
         }
 
@@ -120,9 +125,11 @@ class TelegramBotService
             $nakshatra = $panchang->nakshatraAtSunrise->nameEnglish() ?? 'Unknown';
             $yoga = $panchang->yogaAtSunrise->nameEnglish() ?? 'Unknown';
             $karana = $panchang->karanaAtSunrise->nameEnglish() ?? 'Unknown';
+            
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
 
             $response = "🕉 *Panchang for {$date->format('d M Y')}*\n"
-                      . "📍 Location: `$lat, $lon`\n\n"
+                      . "📍 Location: `$locationName`\n\n"
                       . "🗓 *Tithi:* $tithi\n"
                       . "🌟 *Nakshatra:* $nakshatra\n"
                       . "🧘 *Yoga:* $yoga\n"
@@ -177,9 +184,11 @@ class TelegramBotService
                 $placements[] = "• " . str_pad($pl->planet->name, 8) . ": " . ($pl->rashi->name ?? '-');
             }
 
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
             $response = "🪷 *Kundli Summary*\n"
                       . "📅 Date: {$date->format('d M Y H:i')}\n"
-                      . "📍 Location: `$lat, $lon`\n\n"
+                      . "📍 Location: `$locationName`\n\n"
                       . "🌅 *Ascendant (Lagna):* $ascendant\n"
                       . "🌙 *Moon Sign (Rashi):* $moonSign\n\n"
                       . "*Planetary Positions:*\n"
@@ -241,13 +250,15 @@ class TelegramBotService
                 }
             }
 
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
             if (empty($festivalsList)) {
                 $response = "🪔 *Upcoming Festivals*\n"
-                          . "📍 Location: `$lat, $lon`\n\n"
+                          . "📍 Location: `$locationName`\n\n"
                           . "No major festivals found in the next 30 days starting from {$start->format('d M Y')}.";
             } else {
                 $response = "🪔 *Upcoming Festivals (Next 30 Days)*\n"
-                          . "📍 Location: `$lat, $lon`\n"
+                          . "📍 Location: `$locationName`\n"
                           . "🗓️ Starting from: {$start->format('d M Y')}\n\n"
                           . implode("\n", $festivalsList);
             }
@@ -281,6 +292,49 @@ class TelegramBotService
         if (!$response->successful()) {
             Log::error("Telegram API Error: " . $response->body());
         }
+    }
+
+    /**
+     * Reverse geocode coordinates to a human-readable location name (e.g. "Mumbai, Maharashtra").
+     */
+    private function getLocationName(float $lat, float $lon): string
+    {
+        $cacheKey = "geocode_v1_{$lat}_{$lon}";
+
+        return Cache::remember($cacheKey, now()->addDays(30), function () use ($lat, $lon) {
+            try {
+                $response = Http::timeout(5)->withHeaders([
+                    'User-Agent' => 'Hindutithi-Telegram-Bot/1.0 (contact@hindutithi.in)',
+                    'Accept-Language' => 'en',
+                ])->get('https://nominatim.openstreetmap.org/reverse', [
+                    'format' => 'jsonv2',
+                    'lat' => $lat,
+                    'lon' => $lon,
+                    'zoom' => 10, // City level
+                ]);
+
+                if ($response->successful()) {
+                    $data = $response->json();
+                    
+                    if (!empty($data['name'])) {
+                        $parts = [];
+                        $parts[] = $data['name'];
+                        if (isset($data['address']['state']) && $data['address']['state'] !== $data['name']) {
+                            $parts[] = $data['address']['state'];
+                        } elseif (isset($data['address']['country']) && $data['address']['country'] !== $data['name']) {
+                            $parts[] = $data['address']['country'];
+                        }
+                        
+                        return implode(', ', $parts) . " (" . round($lat, 2) . ", " . round($lon, 2) . ")";
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::warning("Geocoding failed for $lat, $lon: " . $e->getMessage());
+            }
+
+            // Fallback
+            return round($lat, 4) . ', ' . round($lon, 4);
+        });
     }
 
     /**
