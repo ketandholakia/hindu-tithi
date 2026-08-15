@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Vittix\Panchang\Panchang;
 use Vittix\Panchang\ValueObject\GeoLocation;
+use Vittix\Panchang\Enum\Varga;
 use DateTimeImmutable;
 use DateTimeZone;
 
@@ -529,6 +530,295 @@ class TelegramBotService
         } catch (\Throwable $e) {
             Log::error("Telegram /rashi error: " . $e->getMessage());
             $this->sendMessage($chatId, "❌ Error calculating Rashi. Format: `/rashi YYYY-MM-DD HH:MM`");
+        }
+    }
+
+    private function handleDasha(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $timeStr = implode(' ', $args);
+                    $last = end($args);
+                    if (str_contains($last, ',')) {
+                        [$lat, $lon] = explode(',', $last);
+                        $timeStr = trim(str_replace($last, '', $timeStr));
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            
+            // Note: Dasha uses Moon's position so location isn't strictly needed for the dasha calculation itself
+            // but we parse it anyway for consistency.
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+
+            $panchangEngine = app(Panchang::class);
+            $dashas = $panchangEngine->vimshottariDasha($datetime);
+
+            $dashaList = [];
+            foreach ($dashas as $dasha) {
+                $dashaList[] = "• *" . str_pad($dasha->planet->name, 7) . "*: until {$dasha->end->format('M Y')}";
+            }
+
+            $response = "⏳ *Vimshottari Mahadasha*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+
+"
+                      . implode("
+", $dashaList);
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /dasha error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Dasha. Format: `/dasha YYYY-MM-DD HH:MM`");
+        }
+    }
+
+    private function handleShadbala(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $timeStr = implode(' ', $args);
+                    $last = end($args);
+                    if (str_contains($last, ',')) {
+                        [$lat, $lon] = explode(',', $last);
+                        $timeStr = trim(str_replace($last, '', $timeStr));
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $shadbala = $panchangEngine->shadbala($datetime, $location);
+            $totals = $shadbala->getTotalBala();
+            
+            arsort($totals); // Sort by highest strength
+
+            $list = [];
+            foreach ($totals as $planet => $rupas) {
+                // Determine strength level
+                $emoji = $rupas > 7 ? "🔥" : ($rupas > 5 ? "⭐" : "⚠️");
+                $list[] = "$emoji *" . str_pad($planet, 7) . "*: " . round($rupas, 2) . " Rupas";
+            }
+
+            $response = "💪 *Planetary Strength (Shadbala)*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . implode("
+", $list);
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /shadbala error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Shadbala. Format: `/shadbala YYYY-MM-DD HH:MM lat,lon`");
+        }
+    }
+
+    private function handleVarga(int|string $chatId, array $args): void
+    {
+        try {
+            $vargaType = 'D9';
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                // If first arg is something like D9 or D10
+                if (preg_match('/^D\d+$/i', $args[0])) {
+                    $vargaType = strtoupper(array_shift($args));
+                }
+                
+                if (count($args) > 0) {
+                    if (str_contains($args[0], ',')) {
+                        [$lat, $lon] = explode(',', $args[0]);
+                    } else {
+                        $timeStr = implode(' ', $args);
+                        $last = end($args);
+                        if (str_contains($last, ',')) {
+                            [$lat, $lon] = explode(',', $last);
+                            $timeStr = trim(str_replace($last, '', $timeStr));
+                        }
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            // Validate Varga
+            $vargaEnum = Varga::tryFrom($vargaType);
+            if (!$vargaEnum) {
+                $this->sendMessage($chatId, "❌ Invalid Varga type. Try D9, D10, etc.");
+                return;
+            }
+
+            $panchangEngine = app(Panchang::class);
+            $kundali = $panchangEngine->varga($datetime, $location, $vargaEnum);
+
+            $ascendant = $kundali->ascendant->rashi->name ?? 'Unknown';
+            
+            $placements = [];
+            foreach ($kundali->placements as $pl) {
+                $placements[] = "• " . str_pad($pl->planet->name, 8) . ": " . ($pl->rashi->name ?? '-');
+            }
+
+            $response = "🪷 *{$vargaEnum->nameEnglish()}*
+"
+                      . "📅 Date: {$date->format('d M Y H:i')}
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . "🌅 *Ascendant:* $ascendant
+
+"
+                      . "*Planetary Positions:*
+"
+                      . "`" . implode("
+", $placements) . "`";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /varga error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error calculating Varga. Format: `/varga D9 YYYY-MM-DD HH:MM lat,lon`");
+        }
+    }
+
+    private function handleCalendar(int|string $chatId, array $args): void
+    {
+        try {
+            $dateStr = 'today';
+            
+            if (count($args) > 0) {
+                if (!str_contains($args[0], ',')) {
+                    $dateStr = $args[0];
+                }
+            }
+
+            $date = $this->parseDate($dateStr);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+
+            $panchangEngine = app(Panchang::class);
+            $cal = $panchangEngine->calendar($datetime);
+
+            $amanta = $cal->amantaMonth->nameEnglish();
+            if ($cal->isAmantaAdhika) $amanta = "Adhika $amanta";
+            
+            $purnimanta = $cal->purnimantaMonth->nameEnglish();
+            if ($cal->isPurnimantaAdhika) $purnimanta = "Adhika $purnimanta";
+
+            $response = "🗓️ *Hindu Calendar*
+"
+                      . "📅 Date: {$date->format('d M Y')}
+
+"
+                      . "🔹 *Vikram Samvat:* {$cal->vikramSamvat}
+"
+                      . "🔹 *Shaka Samvat:* {$cal->shakaSamvat}
+
+"
+                      . "🌙 *Amanta Month:* $amanta
+"
+                      . "🌕 *Purnimanta Month:* $purnimanta
+"
+                      . "🌗 *Paksha (Phase):* {$cal->paksha->nameEnglish()}
+"
+                      . "🍃 *Ritu (Season):* {$cal->ritu->nameEnglish()}";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /calendar error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error getting calendar. Format: `/calendar YYYY-MM-DD`");
+        }
+    }
+
+    private function handleElectional(int|string $chatId, array $args): void
+    {
+        try {
+            $timeStr = 'now';
+            $lat = 28.6139;
+            $lon = 77.2090;
+
+            if (count($args) > 0) {
+                if (str_contains($args[0], ',')) {
+                    [$lat, $lon] = explode(',', $args[0]);
+                } else {
+                    $timeStr = implode(' ', $args);
+                    $last = end($args);
+                    if (str_contains($last, ',')) {
+                        [$lat, $lon] = explode(',', $last);
+                        $timeStr = trim(str_replace($last, '', $timeStr));
+                    }
+                }
+            }
+
+            if ($timeStr === 'now' || $timeStr === '') $timeStr = 'now';
+            $date = \Carbon\Carbon::parse($timeStr)->timezone('Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
+            $locationName = $this->getLocationName((float)$lat, (float)$lon);
+
+            $panchangEngine = app(Panchang::class);
+            $momentObj = $panchangEngine->moment($datetime, $location);
+            $eval = $panchangEngine->electional()->evaluate($momentObj);
+
+            $score = $eval->score();
+            $rating = $eval->rating(); // Auspicious, Inauspicious, Neutral, Highly Auspicious
+
+            $emoji = match(true) {
+                str_contains(strtolower($rating), 'highly') => "✨",
+                str_contains(strtolower($rating), 'auspicious') => "✅",
+                str_contains(strtolower($rating), 'inauspicious') => "❌",
+                default => "➖",
+            };
+
+            $response = "🎯 *Activity Rating (Electional)*
+"
+                      . "⏰ Time: {$date->format('d M Y H:i')}
+"
+                      . "📍 Location: `$locationName`
+
+"
+                      . "{$emoji} *Rating:* $rating
+"
+                      . "📊 *Score:* {$score}/100
+
+"
+                      . "_Score is based on Tithi, Nakshatra, Yoga, Karana, and Weekday compatibility._";
+
+            $this->sendMessage($chatId, $response, 'Markdown');
+        } catch (\Throwable $e) {
+            Log::error("Telegram /electional error: " . $e->getMessage());
+            $this->sendMessage($chatId, "❌ Error evaluating time. Format: `/electional YYYY-MM-DD HH:MM lat,lon`");
         }
     }
 
