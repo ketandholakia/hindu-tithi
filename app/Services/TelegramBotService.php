@@ -4,9 +4,10 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Vittix\Panchang\Engine\PanchangEngine;
-use Vittix\Panchang\ValueObject\Location;
-use Vittix\Panchang\ValueObject\DateTime;
+use Vittix\Panchang\Panchang;
+use Vittix\Panchang\ValueObject\GeoLocation;
+use DateTimeImmutable;
+use DateTimeZone;
 
 class TelegramBotService
 {
@@ -108,11 +109,11 @@ class TelegramBotService
             }
 
             $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
-            $location = new Location((float)$lat, (float)$lon);
-            $datetime = new DateTime($date->format('Y-m-d H:i:s'), 'Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
-            $engine = new PanchangEngine($datetime, $location);
-            $panchang = $engine->calculate();
+            $panchangEngine = app(Panchang::class);
+            $panchang = $panchangEngine->day($datetime, $location);
 
             $tithi = $panchang->tithi->name ?? 'Unknown';
             $nakshatra = $panchang->nakshatra->name ?? 'Unknown';
@@ -151,17 +152,17 @@ class TelegramBotService
             }
 
             $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
-            $location = new Location((float)$lat, (float)$lon);
-            $datetime = new DateTime($date->format('Y-m-d H:i:s'), 'Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
-            $engine = new PanchangEngine($datetime, $location);
+            $panchangEngine = app(Panchang::class);
             
-            if (!method_exists($engine, 'calculateKundali')) {
+            if (!method_exists($panchangEngine, 'kundali')) {
                 $this->sendMessage($chatId, "❌ Kundli feature is not available in the current Panchang engine version.");
                 return;
             }
 
-            $kundali = $engine->calculateKundali();
+            $kundali = $panchangEngine->kundali($datetime, $location);
 
             $ascendant = $kundali->ascendant->rashi->name ?? 'Unknown';
             
@@ -213,26 +214,25 @@ class TelegramBotService
             }
 
             $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
-            $location = new Location((float)$lat, (float)$lon);
-            $datetime = new DateTime($date->format('Y-m-d H:i:s'), 'Asia/Kolkata');
+            $location = new GeoLocation((float)$lat, (float)$lon, 0);
+            $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
-            $engine = new PanchangEngine($datetime, $location);
+            $panchangEngine = app(Panchang::class);
             
-            if (!method_exists($engine, 'festivals')) {
+            if (!method_exists($panchangEngine, 'festivals')) {
                 $this->sendMessage($chatId, "❌ Festival feature is not available in the current Panchang engine version.");
                 return;
             }
 
-            $festivalEngine = $engine->festivals();
+            $festivalEngine = $panchangEngine->festivals();
             $start = new \DateTimeImmutable($date->format('Y-m-d'), new \DateTimeZone('Asia/Kolkata'));
-            $loc = new \Vittix\Panchang\ValueObject\GeoLocation((float)$lat, (float)$lon, 0);
 
             $festivalsList = [];
             
             // Check next 30 days for festivals
             for ($i = 0; $i < 30; $i++) {
                 $d = $start->modify("+$i day");
-                $festivals = $festivalEngine->getFestivalsForDate($d, $loc);
+                $festivals = $festivalEngine->getFestivalsForDate($d, $location);
                 
                 if (!empty($festivals)) {
                     $names = is_array($festivals) ? implode(', ', $festivals) : $festivals;
