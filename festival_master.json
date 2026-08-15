@@ -1,0 +1,1921 @@
+[
+  {
+    "code": "CHAITRA_SHUKLA_PRATIPADA",
+    "name": {
+      "en": "Chaitra Shukla Pratipada",
+      "hi": "चैत्र शुक्ल प्रतिपदा",
+      "gu": "ચૈત્ર શુક્લ પ્રતિપદા"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "GUDI_PADWA",
+    "name": {
+      "en": "Gudi Padwa",
+      "hi": "गुड़ी पड़वा",
+      "gu": "ગુડી પડવા"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "CHAITRA_SHUKLA_PRATIPADA",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Maharashtra",
+      "Goa"
+    ]
+  },
+  {
+    "code": "UGADI",
+    "name": {
+      "en": "Ugadi",
+      "hi": "उगादी",
+      "gu": "યુગાદી"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "CHAITRA_SHUKLA_PRATIPADA",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Andhra Pradesh",
+      "Telangana",
+      "Karnataka"
+    ]
+  },
+  {
+    "code": "MATSYA_JAYANTI",
+    "name": {
+      "en": "Matsya Jayanti",
+      "hi": "मत्स्य जयंती",
+      "gu": "મત્સ્ય જયંતિ"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "GAURI_TRITIYA",
+    "name": {
+      "en": "Gauri Tritiya",
+      "hi": "गौरी तृतीया",
+      "gu": "ગૌરી તૃતીયા"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "RAMA_NAVAMI",
+    "name": {
+      "en": "Rama Navami",
+      "hi": "राम नवमी",
+      "gu": "રામ નવમી"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 9,
+    "rule_type": "TITHI_MIDDAY",
+    "kala": "MADHYAHNA",
+    "priority": 1
+  },
+  {
+    "code": "KAMADA_EKADASHI",
+    "name": {
+      "en": "Kamada Ekadashi",
+      "hi": "कामदा एकादशी",
+      "gu": "કામદા એકાદશી"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "MAHAVIR_JAYANTI",
+    "name": {
+      "en": "Mahavir Jayanti",
+      "hi": "महावीर जयंती",
+      "gu": "મહાવીર જયંતિ"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 13,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "HANUMAN_JAYANTI",
+    "name": {
+      "en": "Hanuman Jayanti",
+      "hi": "हनुमान जयंती",
+      "gu": "હનુમાન જયંતિ"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "REGIONAL",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "CHAITRA_PURNIMA",
+    "name": {
+      "en": "Chaitra Purnima",
+      "hi": "चैत्र पूर्णिमा",
+      "gu": "ચૈત્ર પૂર્ણિમા"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "VARUTHINI_EKADASHI",
+    "name": {
+      "en": "Varuthini Ekadashi",
+      "hi": "वरुथिनी एकादशी",
+      "gu": "વરુથિની એકાદશી"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "AKSHAYA_TRITIYA",
+    "name": {
+      "en": "Akshaya Tritiya",
+      "hi": "अक्षय तृतीया",
+      "gu": "અક્ષય તૃતીયા"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "PARASHURAMA_JAYANTI",
+    "name": {
+      "en": "Parashurama Jayanti",
+      "hi": "परशुराम जयंती",
+      "gu": "પરશુરામ જયંતિ"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SITA_NAVAMI",
+    "name": {
+      "en": "Sita Navami",
+      "hi": "सीता नवमी",
+      "gu": "સીતા નવમી"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 9,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "NARASIMHA_JAYANTI",
+    "name": {
+      "en": "Narasimha Jayanti",
+      "hi": "नरसिंह जयंती",
+      "gu": "નરસિંહ જયંતિ"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 14,
+    "rule_type": "TITHI_SUNSET",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "MOHINI_EKADASHI",
+    "name": {
+      "en": "Mohini Ekadashi",
+      "hi": "मोहिनी एकादशी",
+      "gu": "મોહિની એકાદશી"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "BUDDHA_PURNIMA",
+    "name": {
+      "en": "Buddha Purnima",
+      "hi": "बुद्ध पूर्णिमा",
+      "gu": "બુદ્ધ પૂર્ણિમા"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "NARADA_JAYANTI",
+    "name": {
+      "en": "Narada Jayanti",
+      "hi": "नारद जयंती",
+      "gu": "નારદ જયંતિ"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "KRISHNA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "APARA_EKADASHI",
+    "name": {
+      "en": "Apara Ekadashi",
+      "hi": "अपरा एकादशी",
+      "gu": "અપરા એકાદશી"
+    },
+    "month": "JYESHTHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "VAT_SAVITRI_VRAT",
+    "name": {
+      "en": "Vat Savitri Vrat",
+      "hi": "वट सावित्री व्रत",
+      "gu": "વટ સાવિત્રી વ્રત"
+    },
+    "month": "JYESHTHA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GANGA_DUSSEHRA",
+    "name": {
+      "en": "Ganga Dussehra",
+      "hi": "गंगा दशहरा",
+      "gu": "ગંગા દશેરા"
+    },
+    "month": "JYESHTHA",
+    "paksha": "SHUKLA",
+    "tithi": 10,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VAT_PURNIMA",
+    "name": {
+      "en": "Vat Purnima",
+      "hi": "वट पूर्णिमा",
+      "gu": "વટ પૂર્ણિમા"
+    },
+    "month": "JYESHTHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "NIRJALA_EKADASHI",
+    "name": {
+      "en": "Nirjala Ekadashi",
+      "hi": "निर्जला एकादशी",
+      "gu": "નિર્જળા એકાદશી"
+    },
+    "month": "JYESHTHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "JYESHTHA_PURNIMA",
+    "name": {
+      "en": "Jyeshtha Purnima",
+      "hi": "ज्येष्ठ पूर्णिमा",
+      "gu": "જ્યેષ્ઠ પૂર્ણિમા"
+    },
+    "month": "JYESHTHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "YOGINI_EKADASHI",
+    "name": {
+      "en": "Yogini Ekadashi",
+      "hi": "योगिनी एकादशी",
+      "gu": "યોગિની એકાદશી"
+    },
+    "month": "ASHADHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "JAGANNATH_RATH_YATRA",
+    "name": {
+      "en": "Jagannath Rath Yatra",
+      "hi": "जगन्नाथ रथ यात्रा",
+      "gu": "જગન્નાથ રથયાત્રા"
+    },
+    "month": "ASHADHA",
+    "paksha": "SHUKLA",
+    "tithi": 2,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "DEVSHAYANI_EKADASHI",
+    "name": {
+      "en": "Devshayani Ekadashi",
+      "hi": "देवशयनी एकादशी",
+      "gu": "દેવશયની એકાદશી"
+    },
+    "month": "ASHADHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GURU_PURNIMA",
+    "name": {
+      "en": "Guru Purnima",
+      "hi": "गुरु पूर्णिमा",
+      "gu": "ગુરુ પૂર્ણિમા"
+    },
+    "month": "ASHADHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "ASHADHA_PURNIMA",
+    "name": {
+      "en": "Ashadha Purnima",
+      "hi": "आषाढ़ पूर्णिमा",
+      "gu": "અષાઢ પૂર્ણિમા"
+    },
+    "month": "ASHADHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "NAG_PANCHAMI",
+    "name": {
+      "en": "Nag Panchami",
+      "hi": "नाग पंचमी",
+      "gu": "નાગ પંચમી"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": 5,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VARALAKSHMI_VRAT",
+    "name": {
+      "en": "Varalakshmi Vrat",
+      "hi": "वरलक्ष्मी व्रत",
+      "gu": "વરલક્ષ્મી વ્રત"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": null,
+    "rule_type": "RELATIVE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "RAKSHA_BANDHAN",
+    "name": {
+      "en": "Raksha Bandhan",
+      "hi": "रक्षा बंधन",
+      "gu": "રક્ષા બંધન"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_APARAHNA",
+    "kala": "APARAHNA",
+    "priority": 1
+  },
+  {
+    "code": "HAYAGRIVA_JAYANTI",
+    "name": {
+      "en": "Hayagriva Jayanti",
+      "hi": "हयग्रीव जयंती",
+      "gu": "હયગ્રીવ જયંતિ"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "KRISHNA_JANMASHTAMI",
+    "name": {
+      "en": "Krishna Janmashtami",
+      "hi": "कृष्ण जन्माष्टमी",
+      "gu": "કૃષ્ણ જન્માષ્ટમી"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_MIDNIGHT",
+    "kala": "NISHITA",
+    "priority": 1,
+    "regional_variants": [
+      "Smarta",
+      "Vaishnava"
+    ]
+  },
+  {
+    "code": "PUTRADA_EKADASHI",
+    "name": {
+      "en": "Putrada Ekadashi",
+      "hi": "पुत्रदा एकादशी",
+      "gu": "પુત્રદા એકાદશી"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "HARTALIKA_TEEJ",
+    "name": {
+      "en": "Hartalika Teej",
+      "hi": "हरतालिका तीज",
+      "gu": "હરતાલિકા ત્રીજ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GANESH_CHATURTHI",
+    "name": {
+      "en": "Ganesh Chaturthi",
+      "hi": "गणेश चतुर्थी",
+      "gu": "ગણેશ ચતુર્થી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 4,
+    "rule_type": "TITHI_MIDDAY",
+    "kala": "MADHYAHNA",
+    "priority": 1
+  },
+  {
+    "code": "RISHI_PANCHAMI",
+    "name": {
+      "en": "Rishi Panchami",
+      "hi": "ऋषि पंचमी",
+      "gu": "ઋષિ પંચમી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 5,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "RADHA_ASHTAMI",
+    "name": {
+      "en": "Radha Ashtami",
+      "hi": "राधा अष्टमी",
+      "gu": "રાધા અષ્ટમી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VAMANA_JAYANTI",
+    "name": {
+      "en": "Vamana Jayanti",
+      "hi": "वामन जयंती",
+      "gu": "વામન જયંતિ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 12,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "ANANT_CHATURDASHI",
+    "name": {
+      "en": "Anant Chaturdashi",
+      "hi": "अनंत चतुर्दशी",
+      "gu": "અનંત ચતુર્દશી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 14,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "BHADRAPADA_PURNIMA",
+    "name": {
+      "en": "Bhadrapada Purnima",
+      "hi": "भाद्रपद पूर्णिमा",
+      "gu": "ભાદરવી પૂનમ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SARVAPITRU_AMAVASYA",
+    "name": {
+      "en": "Sarvapitru Amavasya",
+      "hi": "सर्वपितृ अमावस्या",
+      "gu": "સર્વપિતૃ અમાસ"
+    },
+    "month": "ASHWIN",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "APARAHNA",
+    "priority": 1
+  },
+  {
+    "code": "NAVRATRI_START",
+    "name": {
+      "en": "Navratri Begins",
+      "hi": "नवरात्रि प्रारम्भ",
+      "gu": "નવરાત્રી પ્રારંભ"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GHATASTHAPANA",
+    "name": {
+      "en": "Ghatasthapana",
+      "hi": "घटस्थापना",
+      "gu": "ઘટસ્થાપના"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SEQUENCE",
+    "kala": "PRATAHKALA",
+    "priority": 1
+  },
+  {
+    "code": "DURGA_ASHTAMI",
+    "name": {
+      "en": "Durga Ashtami",
+      "hi": "दुर्गा अष्टमी",
+      "gu": "દુર્ગા અષ્ટમી"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "MAHA_NAVAMI",
+    "name": {
+      "en": "Maha Navami",
+      "hi": "महा नवमी",
+      "gu": "મહા નવમી"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 9,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VIJAYADASHAMI",
+    "name": {
+      "en": "Vijayadashami",
+      "hi": "विजयादशमी",
+      "gu": "વિજયાદશમી"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 10,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "SHARAD_PURNIMA",
+    "name": {
+      "en": "Sharad Purnima",
+      "hi": "शरद पूर्णिमा",
+      "gu": "શરદ પૂર્ણિમા"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "KARWA_CHAUTH",
+    "name": {
+      "en": "Karwa Chauth",
+      "hi": "करवा चौथ",
+      "gu": "કરવા ચોથ"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 4,
+    "rule_type": "TITHI_MOONRISE",
+    "kala": "CHANDRODAYA",
+    "priority": 1
+  },
+  {
+    "code": "DHANTERAS",
+    "name": {
+      "en": "Dhanteras",
+      "hi": "धनतेरस",
+      "gu": "ધનતેરસ"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 13,
+    "rule_type": "TITHI_SUNSET",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "NARAKA_CHATURDASHI",
+    "name": {
+      "en": "Naraka Chaturdashi",
+      "hi": "नरक चतुर्दशी",
+      "gu": "કાળી ચૌદશ"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 14,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "DIWALI",
+    "name": {
+      "en": "Diwali",
+      "hi": "दिवाली",
+      "gu": "દિવાળી"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "GOVARDHAN_PUJA",
+    "name": {
+      "en": "Govardhan Puja",
+      "hi": "गोवर्धन पूजा",
+      "gu": "ગોવર્ધન પૂજા"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "BHAI_DOOJ",
+    "name": {
+      "en": "Bhai Dooj",
+      "hi": "भाई दूज",
+      "gu": "ભાઈ બીજ"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 2,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "CHHATH_PUJA",
+    "name": {
+      "en": "Chhath Puja",
+      "hi": "छठ पूजा",
+      "gu": "છઠ પૂજા"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 6,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "DEVUTTHAN_EKADASHI",
+    "name": {
+      "en": "Devutthan Ekadashi",
+      "hi": "देवुत्थान एकादशी",
+      "gu": "દેવઉઠી એકાદશી"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "TULSI_VIVAH",
+    "name": {
+      "en": "Tulsi Vivah",
+      "hi": "तुलसी विवाह",
+      "gu": "તુલસી વિવાહ"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 12,
+    "rule_type": "REGIONAL",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VAIKUNTHA_CHATURDASHI",
+    "name": {
+      "en": "Vaikuntha Chaturdashi",
+      "hi": "वैकुण्ठ चतुर्दशी",
+      "gu": "વૈકુંઠ ચતુર્દશી"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 14,
+    "rule_type": "TITHI_MIDNIGHT",
+    "kala": "NISHITA",
+    "priority": 2
+  },
+  {
+    "code": "KARTIKA_PURNIMA",
+    "name": {
+      "en": "Kartika Purnima",
+      "hi": "कार्तिक पूर्णिमा",
+      "gu": "કારતક પૂર્ણિમા"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "MOKSHADA_EKADASHI",
+    "name": {
+      "en": "Mokshada Ekadashi",
+      "hi": "मोक्षदा एकादशी",
+      "gu": "મોક્ષદા એકાદશી"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GITA_JAYANTI",
+    "name": {
+      "en": "Gita Jayanti",
+      "hi": "गीता जयंती",
+      "gu": "ગીતા જયંતિ"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "DATTATREYA_JAYANTI",
+    "name": {
+      "en": "Dattatreya Jayanti",
+      "hi": "दत्तात्रेय जयंती",
+      "gu": "દત્તાત્રેય જયંતિ"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNSET",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "MARGASHIRSHA_PURNIMA",
+    "name": {
+      "en": "Margashirsha Purnima",
+      "hi": "मार्गशीर्ष पूर्णिमा",
+      "gu": "માગશર પૂર્ણિમા"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "KALABHAIRAV_JAYANTI",
+    "name": {
+      "en": "Kalabhairav Jayanti",
+      "hi": "कालभैरव जयंती",
+      "gu": "કાળભૈરવ જયંતિ"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_MIDNIGHT",
+    "kala": "NISHITA",
+    "priority": 2
+  },
+  {
+    "code": "PAUSH_PUTRADA_EKADASHI",
+    "name": {
+      "en": "Paush Putrada Ekadashi",
+      "hi": "पौष पुत्रदा एकादशी",
+      "gu": "પોષ પુત્રદા એકાદશી"
+    },
+    "month": "PAUSHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PAUSH_PURNIMA",
+    "name": {
+      "en": "Paush Purnima",
+      "hi": "पौष पूर्णिमा",
+      "gu": "પોષ પૂર્ણિમા"
+    },
+    "month": "PAUSHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SAKATA_CHAUTH",
+    "name": {
+      "en": "Sakata Chauth",
+      "hi": "सकट चौथ",
+      "gu": "સકટ ચોથ"
+    },
+    "month": "PAUSHA",
+    "paksha": "KRISHNA",
+    "tithi": 4,
+    "rule_type": "TITHI_MOONRISE",
+    "kala": "CHANDRODAYA",
+    "priority": 2
+  },
+  {
+    "code": "MAKAR_SANKRANTI",
+    "name": {
+      "en": "Makar Sankranti",
+      "hi": "मकर संक्रांति",
+      "gu": "મકર સંક્રાંતિ"
+    },
+    "month": "PAUSHA",
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "VASANT_PANCHAMI",
+    "name": {
+      "en": "Vasant Panchami",
+      "hi": "वसंत पंचमी",
+      "gu": "વસંત પંચમી"
+    },
+    "month": "MAGHA",
+    "paksha": "SHUKLA",
+    "tithi": 5,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "RATHA_SAPTAMI",
+    "name": {
+      "en": "Ratha Saptami",
+      "hi": "रथ सप्तमी",
+      "gu": "રથ સપ્તમી"
+    },
+    "month": "MAGHA",
+    "paksha": "SHUKLA",
+    "tithi": 7,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "BHISHMA_ASHTAMI",
+    "name": {
+      "en": "Bhishma Ashtami",
+      "hi": "भीष्म अष्टमी",
+      "gu": "ભીષ્મ અષ્ટમી"
+    },
+    "month": "MAGHA",
+    "paksha": "SHUKLA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "JAYA_EKADASHI",
+    "name": {
+      "en": "Jaya Ekadashi",
+      "hi": "जया एकादशी",
+      "gu": "જયા એકાદશી"
+    },
+    "month": "MAGHA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "MAGHA_PURNIMA",
+    "name": {
+      "en": "Magha Purnima",
+      "hi": "माघ पूर्णिमा",
+      "gu": "માઘ પૂર્ણિમા"
+    },
+    "month": "MAGHA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "MAHA_SHIVARATRI",
+    "name": {
+      "en": "Maha Shivaratri",
+      "hi": "महा शिवरात्रि",
+      "gu": "મહા શિવરાત્રી"
+    },
+    "month": "MAGHA",
+    "paksha": "KRISHNA",
+    "tithi": 14,
+    "rule_type": "TITHI_MIDNIGHT",
+    "kala": "NISHITA",
+    "priority": 1
+  },
+  {
+    "code": "PHALGUNA_AMAVASYA",
+    "name": {
+      "en": "Phalguna Amavasya",
+      "hi": "फाल्गुन अमावस्या",
+      "gu": "ફાગણ અમાસ"
+    },
+    "month": "PHALGUNA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PHULERA_DOOJ",
+    "name": {
+      "en": "Phulera Dooj",
+      "hi": "फुलेरा दूज",
+      "gu": "ફુલેરા દૂજ"
+    },
+    "month": "PHALGUNA",
+    "paksha": "SHUKLA",
+    "tithi": 2,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "VIJAYA_EKADASHI",
+    "name": {
+      "en": "Vijaya Ekadashi",
+      "hi": "विजया एकादशी",
+      "gu": "વિજયા એકાદશી"
+    },
+    "month": "PHALGUNA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "AMALAKI_EKADASHI",
+    "name": {
+      "en": "Amalaki Ekadashi",
+      "hi": "आमलकी एकादशी",
+      "gu": "આમલકી એકાદશી"
+    },
+    "month": "PHALGUNA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "HOLIKA_DAHAN",
+    "name": {
+      "en": "Holika Dahan",
+      "hi": "होलिका दहन",
+      "gu": "હોળિકા દહન"
+    },
+    "month": "PHALGUNA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNSET",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "HOLI",
+    "name": {
+      "en": "Holi",
+      "hi": "होली",
+      "gu": "હોળી"
+    },
+    "month": "PHALGUNA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "RELATIVE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "RANG_PANCHAMI",
+    "name": {
+      "en": "Rang Panchami",
+      "hi": "रंग पंचमी",
+      "gu": "રંગ પંચમી"
+    },
+    "month": "PHALGUNA",
+    "paksha": "KRISHNA",
+    "tithi": 5,
+    "rule_type": "RELATIVE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PHALGUNA_PURNIMA",
+    "name": {
+      "en": "Phalguna Purnima",
+      "hi": "फाल्गुन पूर्णिमा",
+      "gu": "ફાગણ પૂર્ણિમા"
+    },
+    "month": "PHALGUNA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SHRAVANA_SOMVAR",
+    "name": {
+      "en": "Shravana Somvar",
+      "hi": "श्रावण सोमवार",
+      "gu": "શ્રાવણ સોમવાર"
+    },
+    "month": "SHRAVANA",
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "RELATIVE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "GANESH_VISARJAN",
+    "name": {
+      "en": "Ganesh Visarjan",
+      "hi": "गणेश विसर्जन",
+      "gu": "ગણેશ વિસર્જન"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 14,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "PITRU_PAKSHA_BEGINS",
+    "name": {
+      "en": "Pitru Paksha Begins",
+      "hi": "पितृ पक्ष प्रारम्भ",
+      "gu": "પિતૃ પક્ષ પ્રારંભ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "APARAHNA",
+    "priority": 2
+  },
+  {
+    "code": "ANNAKUT",
+    "name": {
+      "en": "Annakut",
+      "hi": "अन्नकूट",
+      "gu": "અન્નકૂટ"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "DEV_DIWALI",
+    "name": {
+      "en": "Dev Diwali",
+      "hi": "देव दिवाली",
+      "gu": "દેવ દિવાળી"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNSET",
+    "kala": "PRADOSH",
+    "priority": 1
+  },
+  {
+    "code": "LOHRI",
+    "name": {
+      "en": "Lohri",
+      "hi": "लोहड़ी",
+      "gu": "લોહરી"
+    },
+    "month": "PAUSHA",
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Punjab",
+      "Haryana"
+    ]
+  },
+  {
+    "code": "INDIRA_EKADASHI",
+    "name": {
+      "en": "Indira Ekadashi",
+      "hi": "इन्दिरा एकादशी",
+      "gu": "ઇન્દિરા એકાદશી"
+    },
+    "month": "ASHWIN",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "RAMA_EKADASHI",
+    "name": {
+      "en": "Rama Ekadashi",
+      "hi": "रमा एकादशी",
+      "gu": "રમા એકાદશી"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SANKASHTI_CHATURTHI",
+    "name": {
+      "en": "Sankashti Chaturthi",
+      "hi": "संकष्टी चतुर्थी",
+      "gu": "સંકષ્ટી ચતુર્થી"
+    },
+    "month": null,
+    "paksha": "KRISHNA",
+    "tithi": 4,
+    "rule_type": "TITHI_MOONRISE",
+    "kala": "CHANDRODAYA",
+    "priority": 2
+  },
+  {
+    "code": "PRADOSH_VRAT",
+    "name": {
+      "en": "Pradosh Vrat",
+      "hi": "प्रदोष व्रत",
+      "gu": "પ્રદોષ વ્રત"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": 13,
+    "rule_type": "TITHI_PRADOSH",
+    "kala": "PRADOSH",
+    "priority": 2
+  },
+  {
+    "code": "PONGAL",
+    "name": {
+      "en": "Pongal",
+      "hi": "पोंगल",
+      "gu": "પોંગલ"
+    },
+    "month": "PAUSHA",
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Tamil Nadu"
+    ]
+  },
+  {
+    "code": "ONAM",
+    "name": {
+      "en": "Onam",
+      "hi": "ओणम",
+      "gu": "ઓણમ"
+    },
+    "month": "SHRAVANA",
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "NAKSHATRA_OCCURRENCE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Kerala"
+    ]
+  },
+  {
+    "code": "BESTU_VARAS",
+    "name": {
+      "en": "Gujarati New Year",
+      "hi": "गुजराती नव वर्ष",
+      "gu": "બેસતું વર્ષ"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "LABH_PANCHAM",
+    "name": {
+      "en": "Labh Pancham",
+      "hi": "लाभ पंचमी",
+      "gu": "લાભ પાંચમ"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 5,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "JAYA_PARVATI_VRAT",
+    "name": {
+      "en": "Jaya Parvati Vrat",
+      "hi": "जया पार्वती व्रत",
+      "gu": "જયા પાર્વતી વ્રત"
+    },
+    "month": "ASHADHA",
+    "paksha": "SHUKLA",
+    "tithi": 13,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "BOL_CHOTH",
+    "name": {
+      "en": "Bol Choth (Bahula Chaturthi)",
+      "hi": "बोल चौथ",
+      "gu": "બોળ ચોથ"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 4,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "RANDHAN_CHHATH",
+    "name": {
+      "en": "Randhan Chhath",
+      "hi": "रांधण छठ",
+      "gu": "રાંધણ છઠ"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 6,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "SHITLA_SATAM",
+    "name": {
+      "en": "Shitla Satam",
+      "hi": "शीतला सातम",
+      "gu": "શીતળા સાતમ"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 7,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Gujarat"
+    ]
+  },
+  {
+    "code": "SAPHALA_EKADASHI",
+    "name": {
+      "en": "Saphala Ekadashi",
+      "hi": "सफला एकादशी",
+      "gu": "સફલા એકાદશી"
+    },
+    "month": "PAUSHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SHATTILA_EKADASHI",
+    "name": {
+      "en": "Shattila Ekadashi",
+      "hi": "षटतिला एकादशी",
+      "gu": "ષટતિલા એકાદશી"
+    },
+    "month": "MAGHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PAPAMOCHANI_EKADASHI",
+    "name": {
+      "en": "Papamochani Ekadashi",
+      "hi": "पापमोचनी एकादशी",
+      "gu": "પાપમોચની એકાદશી"
+    },
+    "month": "CHAITRA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "KAMIKA_EKADASHI",
+    "name": {
+      "en": "Kamika Ekadashi",
+      "hi": "कामिका एकादशी",
+      "gu": "કામિકા એકાદશી"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "AJA_EKADASHI",
+    "name": {
+      "en": "Aja Ekadashi",
+      "hi": "अजा एकादशी",
+      "gu": "અજા એકાદશી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PARSVA_EKADASHI",
+    "name": {
+      "en": "Parsva (Parivartini) Ekadashi",
+      "hi": "पार्श्व एकादशी",
+      "gu": "પાર્શ્વ એકાદશી"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PAPANKUSHA_EKADASHI",
+    "name": {
+      "en": "Papankusha Ekadashi",
+      "hi": "पापांकुशा एकादशी",
+      "gu": "પાપાંકુશા એકાદશી"
+    },
+    "month": "ASHWIN",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "UTPANNA_EKADASHI",
+    "name": {
+      "en": "Utpanna Ekadashi",
+      "hi": "उत्पन्ना एकादशी",
+      "gu": "ઉત્પન્ના એકાદશી"
+    },
+    "month": "MARGASHIRSHA",
+    "paksha": "KRISHNA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "PAVITHROTSAVA_EKADASHI",
+    "name": {
+      "en": "Pavithrotsava Ekadashi",
+      "hi": "पवित्रोत्सवा एकादशी",
+      "gu": "પવિત્રોત્સવા એકાદશી"
+    },
+    "month": "SHRAVANA",
+    "paksha": "SHUKLA",
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "VAISAKHI",
+    "name": {
+      "en": "Vaisakhi / Baisakhi",
+      "hi": "बैसाखी",
+      "gu": "વૈસાખી"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Punjab",
+      "North India"
+    ]
+  },
+  {
+    "code": "POHELA_BOISHAKH",
+    "name": {
+      "en": "Pohela Boishakh",
+      "hi": "पोइला बोइशाख",
+      "gu": "પોહેલા બોઈશાખ"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Bengal"
+    ]
+  },
+  {
+    "code": "PUTHANDU",
+    "name": {
+      "en": "Puthandu",
+      "hi": "पुथंडु",
+      "gu": "પુથંડુ"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Tamil Nadu"
+    ]
+  },
+  {
+    "code": "VISHU",
+    "name": {
+      "en": "Vishu",
+      "hi": "विशु",
+      "gu": "વિશુ"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Kerala"
+    ]
+  },
+  {
+    "code": "BIHU",
+    "name": {
+      "en": "Rongali Bihu",
+      "hi": "बिहू",
+      "gu": "બિહુ"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": null,
+    "rule_type": "SANKRANTI",
+    "kala": "SUNRISE",
+    "priority": 1,
+    "regional_variants": [
+      "Assam"
+    ]
+  },
+  {
+    "code": "CHAITRA_NAVRATRI_START",
+    "name": {
+      "en": "Chaitra Navratri Begins",
+      "hi": "चैत्र नवरात्रि प्रारम्भ",
+      "gu": "ચૈત્ર નવરાત્રી પ્રારંભ"
+    },
+    "month": "CHAITRA",
+    "paksha": "SHUKLA",
+    "tithi": 1,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "AHOI_ASHTAMI",
+    "name": {
+      "en": "Ahoi Ashtami",
+      "hi": "अहोई अष्टमी",
+      "gu": "અહોઈ અષ્ટમી"
+    },
+    "month": "KARTIKA",
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "GOPA_ASHTAMI",
+    "name": {
+      "en": "Gopa Ashtami",
+      "hi": "गोपाष्टमी",
+      "gu": "ગોપાષ્ટમી"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SKANDA_SASHTI",
+    "name": {
+      "en": "Skanda Sashti",
+      "hi": "स्कन्द षष्ठी",
+      "gu": "સ્કંદ ષષ્ઠી"
+    },
+    "month": "KARTIKA",
+    "paksha": "SHUKLA",
+    "tithi": 6,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "MAUNI_AMAVASYA",
+    "name": {
+      "en": "Mauni Amavasya",
+      "hi": "मौनी अमावस्या",
+      "gu": "મૌની અમાસ"
+    },
+    "month": "MAGHA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "PITHORI_AMAVASYA",
+    "name": {
+      "en": "Pithori Amavasya",
+      "hi": "पिठोरी अमावस्या",
+      "gu": "પીઠોરી અમાસ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "HARIYALI_AMAVASYA",
+    "name": {
+      "en": "Hariyali Amavasya",
+      "hi": "हरियाली अमावस्या",
+      "gu": "હરિયાળી અમાસ"
+    },
+    "month": "SHRAVANA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SHANI_JAYANTI",
+    "name": {
+      "en": "Shani Jayanti",
+      "hi": "शनि जयंती",
+      "gu": "શનિ જયંતિ"
+    },
+    "month": "JYESHTHA",
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "JIVITPUTRIKA_VRAT",
+    "name": {
+      "en": "Jivitputrika Vrat (Jitiya)",
+      "hi": "जीवित्पुत्रिका व्रत (जितिया)",
+      "gu": "જીવિત્પુત્રિકા વ્રત"
+    },
+    "month": "ASHWIN",
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 1
+  },
+  {
+    "code": "KAJARI_TEEJ",
+    "name": {
+      "en": "Kajari Teej",
+      "hi": "कजरी तीज",
+      "gu": "કજરી ત્રીજ"
+    },
+    "month": "BHADRAPADA",
+    "paksha": "KRISHNA",
+    "tithi": 3,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "SHEETALA_ASHTAMI",
+    "name": {
+      "en": "Sheetala Ashtami (Basoda)",
+      "hi": "शीतला अष्टमी (बसौड़ा)",
+      "gu": "શીતળા અષ્ટમી"
+    },
+    "month": "CHAITRA",
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "GANGA_SAPTAMI",
+    "name": {
+      "en": "Ganga Saptami",
+      "hi": "गंगा सप्तमी",
+      "gu": "ગંગા સપ્તમી"
+    },
+    "month": "VAISHAKHA",
+    "paksha": "SHUKLA",
+    "tithi": 7,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 2
+  },
+  {
+    "code": "MASIK_SHIVARATRI",
+    "name": {
+      "en": "Masik Shivaratri",
+      "hi": "मासिक शिवरात्रि",
+      "gu": "માસિક શિવરાત્રી"
+    },
+    "month": null,
+    "paksha": "KRISHNA",
+    "tithi": 14,
+    "rule_type": "TITHI_MIDNIGHT",
+    "kala": "NISHITA",
+    "priority": 3
+  },
+  {
+    "code": "VINAYAKA_CHATURTHI",
+    "name": {
+      "en": "Vinayaka Chaturthi",
+      "hi": "विनायक चतुर्थी",
+      "gu": "વિનાયક ચતુર્થી"
+    },
+    "month": null,
+    "paksha": "SHUKLA",
+    "tithi": 4,
+    "rule_type": "TITHI_MIDDAY",
+    "kala": "MADHYAHNA",
+    "priority": 3
+  },
+  {
+    "code": "KALASHTAMI",
+    "name": {
+      "en": "Kalashtami",
+      "hi": "कालाष्टमी",
+      "gu": "કાલાષ્ટમી"
+    },
+    "month": null,
+    "paksha": "KRISHNA",
+    "tithi": 8,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "AMAVASYA_VRAT",
+    "name": {
+      "en": "Amavasya",
+      "hi": "अमावस्या",
+      "gu": "અમાસ"
+    },
+    "month": null,
+    "paksha": "KRISHNA",
+    "tithi": 15,
+    "rule_type": "AMAVASYA_FULL_MOON",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "PURNIMA_VRAT",
+    "name": {
+      "en": "Purnima",
+      "hi": "पूर्णिमा",
+      "gu": "પૂર્ણિમા"
+    },
+    "month": null,
+    "paksha": "SHUKLA",
+    "tithi": 15,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  },
+  {
+    "code": "EKADASHI_GENERIC",
+    "name": {
+      "en": "Ekadashi",
+      "hi": "एकादशी",
+      "gu": "એકાદશી"
+    },
+    "month": null,
+    "paksha": null,
+    "tithi": 11,
+    "rule_type": "TITHI_SUNRISE",
+    "kala": "SUNRISE",
+    "priority": 3
+  }
+]

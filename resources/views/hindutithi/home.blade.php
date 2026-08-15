@@ -1,191 +1,299 @@
 @extends('layouts.app')
 
+@section('title', 'Vittix Vedic Panchang — Professional Panchang & Astrology Engine for PHP, Laravel & REST APIs')
+@section('meta_description', 'Generate Panchang, Kundli, planetary positions, muhurta, festivals and Hindu calendar data with one modern open-source PHP package. Official demo of the vittix/panchang engine.')
+
 @section('content')
-    <div class="space-y-10">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-2 inline-flex items-center gap-3 text-sm text-amber-200">
-                <span class="font-semibold">🚀 Version 2.0 released</span>
-                <span class="text-slate-300">Kundli & Astrology support —</span>
-                <a href="/whats-new" class="underline text-amber-100">Read release notes</a>
-            </div>
+    <div class="space-y-16">
+        
+        {{-- Announcement Bar --}}
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 flex justify-center">
+            <a href="/whats-new" class="group flex items-center gap-3 rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]/50 px-4 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] transition hover:bg-[var(--color-bg-elevated)] backdrop-blur-md">
+                <span class="text-[var(--color-brand-saffron)]">✦</span>
+                <span>Version 2.4.0 is now available — Multilingual support + expanded festival calculations</span>
+                <span class="text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] transition">Read release notes &rarr;</span>
+            </a>
         </div>
-        <section class="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-600 shadow-2xl shadow-slate-950/20">
-            <div class="grid gap-8 px-6 py-8 md:px-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(320px,1fr)] lg:px-12 lg:py-12">
-                <div class="space-y-6">
-                    <span class="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
-                        HinduTithi demo
+
+        {{-- Hero Section --}}
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+                
+                {{-- Left side: Copy --}}
+                <div class="space-y-8 relative z-10">
+                    <span class="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--color-brand-saffron)]">
+                        Vittix Panchang Engine
                     </span>
-                    <div class="space-y-4">
-                        <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                            Professional Vedic Panchang & Astrology Engine for PHP, Laravel & REST APIs
+                    <div class="space-y-6">
+                        <h1 class="text-4xl font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-5xl lg:text-[64px] lg:leading-[1.1]">
+                            The Vedic Panchang Engine for Developers
                         </h1>
-                        <p class="max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
-                            Generate Panchang, Kundli, planetary positions, muhurta, festivals and Hindu calendar data with one modern open-source package. HinduTithi is the official demo and playground for the `vittix/panchang` package.
+                        <p class="max-w-2xl text-lg leading-relaxed text-[var(--color-text-secondary)]">
+                            Panchang, Kundli, planetary positions, Muhurta, festivals and Hindu calendar calculations &mdash; built for PHP, Laravel and REST APIs.
                         </p>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <a href="#installation" class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">
-                            Get Started
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#get-started" class="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-brand-saffron)] px-8 text-sm font-semibold text-[#030817] transition hover:bg-[var(--color-brand-gold)]">
+                            Get Started &rarr;
                         </a>
-                        <a href="{{ route('api.docs') }}" class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                            Documentation
-                        </a>
-                        <a href="https://github.com/ketandholakia/Vittix-Vedic-Panchang" target="_blank" class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                            ⭐ Star on GitHub
+                        <a href="{{ route('api.docs') }}" class="inline-flex h-12 items-center justify-center rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-8 text-sm font-semibold text-[var(--color-text-primary)] transition hover:bg-[var(--color-bg-elevated)]">
+                            Read Documentation
                         </a>
                     </div>
-
-                    <div class="mt-3 text-sm text-slate-300">
-                        <a href="{{ route('hindutithi.day') }}" class="font-semibold text-slate-100 hover:text-white">Try the live demo</a>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3 text-sm text-slate-300">
-                        <a href="https://github.com/ketandholakia/Vittix-Vedic-Panchang/issues" target="_blank" class="hover:text-white">Report Issue</a>
-                        <span class="text-slate-500">•</span>
-                        <a href="{{ route('api.docs') }}" class="hover:text-white">API Reference</a>
-                        <span class="text-slate-500">•</span>
-                        <a href="{{ route('hindutithi.help') }}" class="hover:text-white">Help</a>
+                    <div class="pt-4">
+                        <a href="https://github.com/ketandholakia/Vittix-Vedic-Panchang" target="_blank" class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition">
+                            ★ Star on GitHub
+                        </a>
                     </div>
                 </div>
 
-                <div id="installation" class="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur">
-                    <div class="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Installation</div>
-                    <div class="rounded-3xl bg-slate-950/80 p-5">
-                        <pre class="whitespace-pre-wrap text-sm text-slate-100">composer require vittix/panchang
+                {{-- Right side: Live Panchang Preview --}}
+                <div class="relative z-10 hidden md:block">
+                    {{-- Decorative atmospheric glow --}}
+                    <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-[var(--color-brand-saffron)]/10 to-transparent blur-2xl -z-10"></div>
+                    
+                    <div class="relative overflow-hidden rounded-[24px] border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-8 shadow-2xl backdrop-blur-xl">
+                        {{-- Top Header --}}
+                        <div class="flex items-center justify-between border-b border-[var(--color-border-subtle)] pb-6">
+                            <div>
+                                <div class="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--color-text-muted)]">Today</div>
+                                <div class="mt-1 text-lg font-semibold text-[var(--color-text-primary)]">{{ date('d F Y') }}</div>
+                                <div class="text-sm text-[var(--color-text-secondary)]">{{ date('l') }}</div>
+                            </div>
+                            <div class="relative flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] ring-1 ring-[var(--color-border-subtle)]">
+                                <span class="text-xl text-[var(--color-brand-saffron)]">☀</span>
+                            </div>
+                        </div>
 
-use Vittix\Panchang\Panchang;
+                        {{-- Panchang Data --}}
+                        <div class="space-y-5 border-b border-[var(--color-border-subtle)] py-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)]">Tithi</span>
+                                <span class="text-sm font-medium text-[var(--color-text-primary)]">Krishna Trayodashi</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)]">Nakshatra</span>
+                                <span class="text-sm font-medium text-[var(--color-text-primary)]">Pushya</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)]">Yoga</span>
+                                <span class="text-sm font-medium text-[var(--color-text-primary)]">Siddha</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)]">Karana</span>
+                                <span class="text-sm font-medium text-[var(--color-text-primary)]">Vanija</span>
+                            </div>
+                        </div>
 
-$panchang = Panchang::today('Mumbai');
-
-echo $panchang->tithi->name;
-</pre>
+                        {{-- Sun timings --}}
+                        <div class="pt-6 flex justify-between">
+                            <div>
+                                <div class="text-xs text-[var(--color-text-muted)]">Sunrise</div>
+                                <div class="mt-1 font-mono text-sm text-[var(--color-text-primary)]">06:12</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-[var(--color-text-muted)]">Sunset</div>
+                                <div class="mt-1 font-mono text-sm text-[var(--color-text-primary)]">19:04</div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="mt-4 text-sm leading-6 text-slate-300">
-                        Install the package and run a complete end-to-end example in one place.
+                </div>
+
+            </div>
+        </section>
+
+        {{-- Metrics Strip --}}
+        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 gap-y-8 sm:grid-cols-4 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6 backdrop-blur-xl divide-x divide-[var(--color-border-subtle)]">
+                <div class="px-6 flex flex-col justify-center text-center sm:text-left">
+                    <div class="text-2xl font-bold text-[var(--color-brand-gold)]">20+</div>
+                    <div class="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Panchang calculations</div>
+                </div>
+                <div class="px-6 flex flex-col justify-center text-center sm:text-left">
+                    <div class="text-2xl font-bold text-[var(--color-brand-gold)]">9</div>
+                    <div class="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">REST endpoints</div>
+                </div>
+                <div class="px-6 flex flex-col justify-center text-center sm:text-left border-l-0 sm:border-l sm:border-[var(--color-border-subtle)] mt-8 sm:mt-0 pt-8 sm:pt-0">
+                    <div class="text-2xl font-bold text-[var(--color-brand-gold)]">PHP 8.3+</div>
+                    <div class="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Modern runtime</div>
+                </div>
+                <div class="px-6 flex flex-col justify-center text-center sm:text-left mt-8 sm:mt-0 pt-8 sm:pt-0">
+                    <div class="text-2xl font-bold text-[var(--color-brand-gold)]">MIT</div>
+                    <div class="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Open source</div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Introduction Section --}}
+        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+            <div class="grid gap-12 lg:grid-cols-2 items-center">
+                <div class="space-y-6">
+                    <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--color-text-secondary)]">
+                        What is Vittix Panchang?
+                    </span>
+                    <h2 class="text-3xl sm:text-[38px] font-semibold leading-[1.2] tracking-tight text-[var(--color-text-primary)]">
+                        A precision Panchang calculation engine built for developers.
+                    </h2>
+                    <p class="text-base leading-relaxed text-[var(--color-text-secondary)]">
+                        Generate tithi, nakshatra, yoga, karana, vara, sunrise, sunset, moonrise, moonset, festivals, muhurta and more with timezone-aware calculations.
                     </p>
+                </div>
 
-                    <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">
-                            <div class="font-semibold text-white">Current release</div>
-                                <div class="mt-2">v2.0.0</div>
+                {{-- Code Example --}}
+                <div class="relative overflow-hidden rounded-[20px] border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] shadow-xl">
+                    <div class="flex items-center justify-between border-b border-[var(--color-border-subtle)] bg-[#0c1328] px-4 py-3">
+                        <div class="flex items-center gap-2">
+                            <div class="h-3 w-3 rounded-full bg-red-500/20 ring-1 ring-red-500/30"></div>
+                            <div class="h-3 w-3 rounded-full bg-amber-500/20 ring-1 ring-amber-500/30"></div>
+                            <div class="h-3 w-3 rounded-full bg-green-500/20 ring-1 ring-green-500/30"></div>
                         </div>
-                        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">
-                            <div class="font-semibold text-white">Compatible</div>
-                            <div class="mt-2">PHP 8.3+, Laravel 13</div>
-                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">PHP</span>
+                    </div>
+                    <div class="p-6 overflow-x-auto text-sm leading-loose">
+                        <pre><code class="text-sky-300">use</code> <span class="text-slate-200">Vittix\Panchang\Panchang;</span>
+
+<span class="text-purple-300">$panchang</span> <span class="text-slate-400">=</span> <span class="text-amber-200">Panchang</span><span class="text-slate-400">::</span><span class="text-blue-300">today</span><span class="text-slate-400">(</span><span class="text-green-300">'Mumbai'</span><span class="text-slate-400">);</span>
+
+<span class="text-sky-300">echo</span> <span class="text-purple-300">$panchang</span><span class="text-slate-400">-&gt;</span><span class="text-slate-200">tithi</span><span class="text-slate-400">()-&gt;</span><span class="text-slate-200">name;</span>
+<span class="text-sky-300">echo</span> <span class="text-purple-300">$panchang</span><span class="text-slate-400">-&gt;</span><span class="text-slate-200">nakshatra</span><span class="text-slate-400">()-&gt;</span><span class="text-slate-200">name;</span>
+<span class="text-sky-300">echo</span> <span class="text-purple-300">$panchang</span><span class="text-slate-400">-&gt;</span><span class="text-blue-300">sunrise</span><span class="text-slate-400">();</span></pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="grid gap-4 lg:grid-cols-[1fr_max-content]">
-            <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg shadow-slate-950/20">
-                <div class="max-w-3xl">
-                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">What is Vittix Panchang?</p>
-                    <h2 class="mt-3 text-3xl font-semibold tracking-tight text-white">A precision Panchang calculation engine built for developers.</h2>
-                    <p class="mt-4 text-base leading-7 text-slate-300">
-                        The package delivers daily tithi, nakshatra, yoga, karana, vara, sunrise, sunset, moonrise, moonset, festival calendars, and muhurta windows with accurate timezone support.
-                        It is optimized for PHP applications, Laravel integrations, and API-driven interfaces.
-                    </p>
-
-                    <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5">
-                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Accuracy</p>
-                            <p class="mt-2 text-sm leading-6 text-slate-300">Timezone, DST, historical dates, and ephemeris-based calculations for reliable output.</p>
-                        </div>
-                        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5">
-                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Developer experience</p>
-                            <p class="mt-2 text-sm leading-6 text-slate-300">Simple PHP methods and REST endpoints make adoption fast and predictable.</p>
-                        </div>
-                    </div>
-                </div>
+        {{-- Feature Architecture --}}
+        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold tracking-tight text-[var(--color-text-primary)]">Comprehensive Calculation Engine</h2>
+                <p class="mt-4 text-[var(--color-text-secondary)]">Everything you need to build Vedic astronomical applications.</p>
             </div>
-
-            <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-lg shadow-slate-950/20">
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Quick start</p>
-                <div class="mt-4 rounded-3xl bg-slate-950/80 p-5">
-                    <pre class="whitespace-pre-wrap text-sm text-slate-100">&lt;?php
-$panchang = Panchang::today('Mumbai');
-
-echo $panchang->tithi->name;
-echo $panchang->nakshatra->name;
-echo $panchang->sunrise;
-</pre>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {{-- Card 1 --}}
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+                    <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-[var(--color-brand-saffron)]/10 text-[var(--color-brand-saffron)] mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-[var(--color-text-primary)]">Panchang & Time</h3>
+                    <p class="mt-2 text-sm text-[var(--color-text-secondary)]">Tithi, Nakshatra, Yoga, Karana, Vara, Sunrise, Sunset, Moonrise, Moonset.</p>
+                </div>
+                {{-- Card 2 --}}
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+                    <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-[var(--color-brand-saffron)]/10 text-[var(--color-brand-saffron)] mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-[var(--color-text-primary)]">Astrology & Kundli</h3>
+                    <p class="mt-2 text-sm text-[var(--color-text-secondary)]">Planetary positions, Dashas, Ascendant, Rashi, and Navamsha charts.</p>
+                </div>
+                {{-- Card 3 --}}
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+                    <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-[var(--color-brand-saffron)]/10 text-[var(--color-brand-saffron)] mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-[var(--color-text-primary)]">Muhurta & Electional</h3>
+                    <p class="mt-2 text-sm text-[var(--color-text-secondary)]">Rahu Kalam, Yamaganda, Abhijit, Brahma Muhurta, and Choghadiya.</p>
+                </div>
+                {{-- Card 4 --}}
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+                    <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-[var(--color-brand-saffron)]/10 text-[var(--color-brand-saffron)] mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-[var(--color-text-primary)]">Hindu Calendar</h3>
+                    <p class="mt-2 text-sm text-[var(--color-text-secondary)]">Festivals, Ekadashi, Purnima, Amavasya, Sankranti, and fasts.</p>
                 </div>
             </div>
         </section>
 
-        <section class="grid gap-4 lg:grid-cols-[1fr_max-content]">
-            <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg shadow-slate-950/20">
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Trust</p>
-                <h3 class="mt-3 text-2xl font-semibold text-white">Open source readiness</h3>
-                <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ MIT Licensed</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ Composer install</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ REST API ready</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ Timezone aware</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ Tested on Laravel 13</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">✓ Open source demo</div>
+        {{-- Developer Stack --}}
+        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24">
+            <div class="grid gap-6 lg:grid-cols-3">
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-gradient-to-b from-[#111A31] to-[#0B1226] p-8">
+                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Native PHP</h3>
+                    <p class="mt-3 text-[var(--color-text-secondary)] leading-relaxed">Drop-in Composer package for any PHP 8.3+ application. Zero external API dependencies required.</p>
                 </div>
-                <div class="mt-6 grid gap-3 sm:grid-cols-3">
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-center text-sm text-slate-200">
-                        <div class="text-2xl font-semibold text-white">20+</div>
-                        <div class="mt-1 uppercase tracking-[0.2em] text-slate-400">Calculations</div>
-                    </div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-center text-sm text-slate-200">
-                        <div class="text-2xl font-semibold text-white">6</div>
-                        <div class="mt-1 uppercase tracking-[0.2em] text-slate-400">API endpoints</div>
-                    </div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-center text-sm text-slate-200">
-                        <div class="text-2xl font-semibold text-white">MIT</div>
-                        <div class="mt-1 uppercase tracking-[0.2em] text-slate-400">License</div>
-                    </div>
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-gradient-to-b from-[#111A31] to-[#0B1226] p-8">
+                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Laravel Ready</h3>
+                    <p class="mt-3 text-[var(--color-text-secondary)] leading-relaxed">Seamless integration with Laravel via service providers, facades, and Artisan commands.</p>
+                </div>
+                <div class="rounded-2xl border border-[var(--color-border-subtle)] bg-gradient-to-b from-[#111A31] to-[#0B1226] p-8">
+                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">REST APIs</h3>
+                    <p class="mt-3 text-[var(--color-text-secondary)] leading-relaxed">Expose JSON endpoints effortlessly to power mobile apps, SPAs, and microservices.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg shadow-slate-950/20">
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Features</p>
-                <h3 class="mt-3 text-2xl font-semibold text-white">Supported calculations</h3>
-                <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                    @foreach([
-                        'Tithi', 'Nakshatra', 'Yoga', 'Karana', 'Vara', 'Sunrise', 'Sunset', 'Moonrise', 'Moonset',
-                        'Rahu Kalam', 'Gulika', 'Yamaganda', 'Abhijit Muhurta', 'Brahma Muhurta', 'Festivals',
-                        'Ekadashi', 'Chaturthi', 'Amavasya', 'Purnima', 'Sankranti',
-                    ] as $feature)
-                        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-200">
-                            ✔ {{ $feature }}
+        {{-- API Explorer --}}
+        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24 mb-16">
+            <div class="rounded-[24px] border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-8 md:p-12 shadow-xl">
+                <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--color-brand-saffron)]">
+                            JSON Responses
+                        </span>
+                        <h2 class="mt-4 text-3xl font-semibold tracking-tight text-[var(--color-text-primary)]">
+                            RESTful by design
+                        </h2>
+                        <p class="mt-4 text-base leading-relaxed text-[var(--color-text-secondary)]">
+                            Every calculation can be accessed via standardized JSON APIs. Perfect for building headless architecture, mobile apps, or JavaScript frontends.
+                        </p>
+                        <ul class="mt-8 space-y-4">
+                            <li class="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] font-mono text-[10px]">GET</span>
+                                <code class="text-[var(--color-text-primary)]">/api/day</code> &mdash; Daily Panchang
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] font-mono text-[10px]">GET</span>
+                                <code class="text-[var(--color-text-primary)]">/api/moment</code> &mdash; Exact instant calculation
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] font-mono text-[10px]">GET</span>
+                                <code class="text-[var(--color-text-primary)]">/api/kundli</code> &mdash; Birth chart generation
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] font-mono text-[10px]">GET</span>
+                                <code class="text-[var(--color-text-primary)]">/api/calendar</code> &mdash; Festival data
+                            </li>
+                        </ul>
+                        <div class="mt-8">
+                            <a href="{{ route('api.docs') }}" class="text-sm font-medium text-[var(--color-brand-saffron)] hover:text-[var(--color-brand-gold)] transition">
+                                View full API documentation &rarr;
+                            </a>
                         </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg shadow-slate-950/20">
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">API</p>
-                <h3 class="mt-3 text-2xl font-semibold text-white">REST endpoints</h3>
-                    <div class="mt-6 space-y-3 text-sm text-slate-300">
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/day</code> — daily Panchang based on sunrise</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/moment</code> — moment-based Panchang for exact instants</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/calendar</code> — Hindu calendar and festival data</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/muhurta</code> — muhurta and auspicious timing windows</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/electional</code> — electional timing data</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/examples</code> — example JSON responses</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/kundli</code> — generate Kundli / birth chart from birth details</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/planets</code> — planetary positions for a given instant/location</div>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-4">GET <code>/api/chart</code> — chart rendered data / JSON for visualisation</div>
+                    </div>
+                    <div class="rounded-2xl bg-[#030817] p-6 border border-[var(--color-border-subtle)] overflow-x-auto text-xs font-mono leading-loose text-slate-300 shadow-inner">
+<pre>{
+  <span class="text-sky-300">"status"</span>: <span class="text-green-300">"success"</span>,
+  <span class="text-sky-300">"data"</span>: {
+    <span class="text-sky-300">"date"</span>: <span class="text-green-300">"2026-08-15"</span>,
+    <span class="text-sky-300">"location"</span>: <span class="text-green-300">"Mumbai"</span>,
+    <span class="text-sky-300">"tithi"</span>: {
+      <span class="text-sky-300">"name"</span>: <span class="text-green-300">"Krishna Trayodashi"</span>,
+      <span class="text-sky-300">"end_time"</span>: <span class="text-green-300">"18:45:00"</span>
+    },
+    <span class="text-sky-300">"nakshatra"</span>: {
+      <span class="text-sky-300">"name"</span>: <span class="text-green-300">"Pushya"</span>,
+      <span class="text-sky-300">"end_time"</span>: <span class="text-green-300">"20:12:00"</span>
+    }
+  }
+}</pre>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <section class="space-y-6 rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg shadow-slate-950/20">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Roadmap</p>
-            <h3 class="text-2xl font-semibold text-white">What comes next</h3>
-            <div class="grid gap-4 sm:grid-cols-2">
-                <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">Add multilingual support and expand festival coverage.</div>
-                <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">Create dedicated accuracy, documentation, changelog, and API reference pages.</div>
-                <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">Expand ecosystem support for PHP libraries, Laravel packages, REST APIs, JS SDKs, and mobile clients.</div>
-                <div class="rounded-3xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">Focus on developer adoption with clear examples, installation first, and GitHub visibility.</div>
+        {{-- Final CTA --}}
+        <section class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mt-24 mb-24 text-center">
+            <h2 class="text-3xl font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-4xl">Ready to build your Vedic app?</h2>
+            <p class="mt-4 text-lg text-[var(--color-text-secondary)]">Join the open-source community building the modern standard for Hindu calendrical computations.</p>
+            <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#get-started" class="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-brand-saffron)] px-8 text-sm font-semibold text-[#030817] transition hover:bg-[var(--color-brand-gold)]">
+                    Install Package
+                </a>
+                <a href="https://github.com/ketandholakia/Vittix-Vedic-Panchang" target="_blank" class="inline-flex h-12 items-center justify-center rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-8 text-sm font-semibold text-[var(--color-text-primary)] transition hover:bg-[var(--color-bg-elevated)]">
+                    View on GitHub
+                </a>
             </div>
         </section>
+
     </div>
 @endsection

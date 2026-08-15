@@ -23,13 +23,13 @@ class PanchangApiController extends Controller
                     'method' => 'GET',
                     'path' => '/api/day',
                     'description' => 'Daily Panchang summary for a date, timezone, and location.',
-                    'query' => ['date', 'tz', 'lat', 'lon', 'elev'],
+                    'query' => ['date', 'tz', 'lat', 'lon', 'elev', 'month_system', 'ayanamsha'],
                 ],
                 [
                     'method' => 'GET',
                     'path' => '/api/moment',
                     'description' => 'Panchang values for a specific instant.',
-                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev'],
+                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev', 'month_system', 'ayanamsha'],
                 ],
                 [
                     'method' => 'GET',
@@ -49,6 +49,60 @@ class PanchangApiController extends Controller
                     'description' => 'Available electional evaluator capabilities.',
                     'query' => [],
                 ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/astrology/kundli',
+                    'description' => 'Full birth chart (Kundli) with ascendant and planetary positions.',
+                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev', 'ayanamsha'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/astrology/yogas',
+                    'description' => 'Classical yogas present in the birth chart.',
+                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev', 'ayanamsha'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/astrology/shadbala',
+                    'description' => 'Six-fold planetary strength (Shadbala).',
+                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev', 'ayanamsha'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/astrology/dasha',
+                    'description' => 'Vimshottari Dasha planetary periods.',
+                    'query' => ['date', 'time', 'tz', 'ayanamsha'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/timeline',
+                    'description' => 'Panchanga limb windows (Tithi, Nakshatra, Yoga, Karana) over a date range (max 7 days).',
+                    'query' => ['date', 'end_date', 'tz', 'fields', 'lang', 'ayanamsha'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/sankranti',
+                    'description' => 'Exact Sun-enters-Rashi (solar transit/Sankranti) moments for a given year.',
+                    'query' => ['year', 'rashi', 'tz', 'ayanamsha', 'lang'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/electional/evaluate',
+                    'description' => 'Evaluate electional auspiciousness (Amrit Siddhi, Bhadra, Panchaka, etc.) for a specific moment.',
+                    'query' => ['date', 'time', 'tz', 'lat', 'lon', 'elev', 'ayanamsha', 'lang'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/astronomy',
+                    'description' => 'Pure astronomical report: sunrise/sunset, moonrise/moonset, ayanamsha, sidereal time, and planetary longitudes.',
+                    'query' => ['date', 'tz', 'lat', 'lon', 'elev', 'ayanamsha', 'lang'],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/api/moon-sign',
+                    'description' => 'Moon Rashi (Janmarashi) with sidereal longitude and degree within sign.',
+                    'query' => ['date', 'time', 'tz', 'ayanamsha', 'lang'],
+                ],
             ],
         ]);
     }
@@ -64,6 +118,8 @@ class PanchangApiController extends Controller
             'lon'  => $input['lon'],
             'elev' => $input['elev'],
             'lang' => $input['lang'],
+            'month_system' => $input['month_system'],
+            'ayanamsha' => $input['ayanamsha'],
         ];
 
         $query = http_build_query($base);
@@ -92,6 +148,22 @@ class PanchangApiController extends Controller
                     'name' => 'electional',
                     'url'  => url('/api/electional'),
                 ],
+                [
+                    'name' => 'kundli',
+                    'url'  => url("/api/astrology/kundli?$query"),
+                ],
+                [
+                    'name' => 'yogas',
+                    'url'  => url("/api/astrology/yogas?$query"),
+                ],
+                [
+                    'name' => 'shadbala',
+                    'url'  => url("/api/astrology/shadbala?$query"),
+                ],
+                [
+                    'name' => 'dasha',
+                    'url'  => url("/api/astrology/dasha?date={$base['date']}&time={$base['time']}&tz={$base['tz']}&ayanamsha={$base['ayanamsha']}"),
+                ],
             ],
         ]);
     }
@@ -106,6 +178,8 @@ class PanchangApiController extends Controller
             'lon'  => $request->query('lon', 72.5714),
             'elev' => $request->query('elev', 0),
             'lang' => PanchangTranslator::validLang((string) $request->query('lang', 'en')),
+            'month_system' => $request->query('month_system', 'amanta'),
+            'ayanamsha' => $request->query('ayanamsha', 'lahiri'),
         ];
     }
 
@@ -210,19 +284,22 @@ class PanchangApiController extends Controller
     public function day(Request $request)
     {
         $input    = $this->input($request);
-        $panchang = app(Panchang::class);
+        $ayanamsha = \Vittix\Panchang\Enum\AyanamshaSystem::from($input['ayanamsha']);
+        $panchang = Panchang::createDefault($ayanamsha);
         $date     = new DateTimeImmutable($input['date'], new DateTimeZone($input['tz']));
         $loc      = $this->location($input);
         $lang     = $input['lang'];
-        $key      = "api:v2:day:{$date->format('Ymd')}:{$loc->latitude}:{$loc->longitude}:{$loc->elevationMeters}:{$date->getTimezone()->getName()}:{$lang}";
+        $monthSys = \Vittix\Panchang\Enum\MonthSystem::from($input['month_system']);
+        $key      = "api:v2:day:{$date->format('Ymd')}:{$loc->latitude}:{$loc->longitude}:{$loc->elevationMeters}:{$date->getTimezone()->getName()}:{$lang}:{$monthSys->value}";
 
-        return response()->json($this->cached($key, fn () => $this->dayToArray($panchang->day($date, $loc), $lang)));
+        return response()->json($this->cached($key, fn () => $this->dayToArray($panchang->calculator()->forDay($date, $loc, $monthSys), $lang)));
     }
 
     public function moment(Request $request)
     {
         $input    = $this->input($request);
-        $panchang = app(Panchang::class);
+        $ayanamsha = \Vittix\Panchang\Enum\AyanamshaSystem::from($input['ayanamsha']);
+        $panchang = Panchang::createDefault($ayanamsha);
         $moment   = $this->makeMoment($input);
         $loc      = $this->location($input);
         $lang     = $input['lang'];
@@ -234,7 +311,8 @@ class PanchangApiController extends Controller
     public function calendar(Request $request)
     {
         $input    = $this->input($request);
-        $panchang = app(Panchang::class);
+        $ayanamsha = \Vittix\Panchang\Enum\AyanamshaSystem::from($input['ayanamsha']);
+        $panchang = Panchang::createDefault($ayanamsha);
         $date     = new DateTimeImmutable($input['date'], new DateTimeZone($input['tz']));
         $lang     = $input['lang'];
         $key      = "api:v2:calendar:{$date->format('Ymd')}:{$date->getTimezone()->getName()}:{$lang}";
@@ -245,13 +323,15 @@ class PanchangApiController extends Controller
     public function muhurta(Request $request)
     {
         $input    = $this->input($request);
-        $panchang = app(Panchang::class);
+        $ayanamsha = \Vittix\Panchang\Enum\AyanamshaSystem::from($input['ayanamsha']);
+        $panchang = Panchang::createDefault($ayanamsha);
         $date     = new DateTimeImmutable($input['date'], new DateTimeZone($input['tz']));
         $loc      = $this->location($input);
         $lang     = $input['lang'];
+        $monthSys = \Vittix\Panchang\Enum\MonthSystem::from($input['month_system']);
         $day      = $this->cached(
-            "api:v2:day:{$date->format('Ymd')}:{$loc->latitude}:{$loc->longitude}:{$loc->elevationMeters}:{$date->getTimezone()->getName()}:{$lang}",
-            fn () => $this->dayToArray($panchang->day($date, $loc), $lang)
+            "api:v2:day:{$date->format('Ymd')}:{$loc->latitude}:{$loc->longitude}:{$loc->elevationMeters}:{$date->getTimezone()->getName()}:{$lang}:{$monthSys->value}",
+            fn () => $this->dayToArray($panchang->calculator()->forDay($date, $loc, $monthSys), $lang)
         );
 
         $sunrise = $day['solarEvents']['sunrise'] ? new DateTimeImmutable($day['solarEvents']['sunrise']) : null;
@@ -278,7 +358,9 @@ class PanchangApiController extends Controller
 
     public function electional(Request $request)
     {
-        $panchang = app(Panchang::class);
+        $input    = $this->input($request);
+        $ayanamsha = \Vittix\Panchang\Enum\AyanamshaSystem::from($input['ayanamsha']);
+        $panchang = Panchang::createDefault($ayanamsha);
 
         return response()->json([
             'evaluator' => get_class($panchang->electional()),

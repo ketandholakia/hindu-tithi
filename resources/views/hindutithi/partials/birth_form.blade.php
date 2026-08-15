@@ -29,13 +29,13 @@
         </div>
         <div class="space-y-1">
             <label class="block text-xs font-medium text-slate-400">Latitude</label>
-            <input name="lat" step="0.0001" type="number"
+            <input name="lat" step="any" type="number"
                    class="w-full rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white focus:border-amber-500/50 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition"
                    value="{{ $input['lat'] ?? '23.0225' }}">
         </div>
         <div class="space-y-1">
             <label class="block text-xs font-medium text-slate-400">Longitude</label>
-            <input name="lon" step="0.0001" type="number"
+            <input name="lon" step="any" type="number"
                    class="w-full rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white focus:border-amber-500/50 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition"
                    value="{{ $input['lon'] ?? '72.5714' }}">
         </div>
@@ -88,7 +88,7 @@
             ['Chennai',    '13.0827', '80.2707'],
         ] as [$city, $lat, $lon])
             <button type="button"
-                    onclick="document.querySelector('[name=lat]').value='{{ $lat }}';document.querySelector('[name=lon]').value='{{ $lon }}';document.querySelector('[name=tz]').value='Asia/Kolkata'"
+                    onclick="document.querySelector('[name=lat]').value='{{ $lat }}';document.querySelector('[name=lon]').value='{{ $lon }}';document.querySelector('[name=tz]').value='Asia/Kolkata'; this.closest('form').submit();"
                     class="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-400 transition hover:border-amber-500/50 hover:text-amber-300 hover:bg-amber-500/10">
                 {{ $city }}
             </button>

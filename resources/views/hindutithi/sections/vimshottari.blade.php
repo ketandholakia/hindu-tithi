@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Vimshottari Dasha Calculator — Major & Sub Periods | Hindutithi')
+@section('meta_description', 'Vimshottari Dasha periods and sub-periods computed from your birth details.')
+
 @section('content')
-    <h2>Vimshottari Dasha</h2>
+    <h1>Vimshottari Dasha</h1>
     <div>
         <ul class="list-group">
             @foreach($dashas as $d)

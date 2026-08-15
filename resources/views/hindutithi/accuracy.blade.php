@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Panchang Accuracy — Astronomical Precision | Hindutithi')
+@section('meta_description', 'How Vittix Vedic Panchang achieves accurate tithi, nakshatra, yoga and muhurta calculations using timezone-aware astronomy, Lahiri ayanamsa and DST handling.')
+
 @section('content')
     <div class="space-y-8">
         <section class="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-600 shadow-2xl shadow-slate-950/20 px-6 py-8 sm:px-10 lg:px-12 lg:py-12">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\KundaliHelper;
 use App\Services\PanchangTranslator;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -56,9 +57,75 @@ class DemoController
         return new GeoLocation((float) $input['lat'], (float) $input['lon'], (float) ($input['elev'] ?? 0.0));
     }
 
+    private function getPanchangVersion(): string
+    {
+        if (class_exists(\Composer\InstalledVersions::class) && method_exists(\Composer\InstalledVersions::class, 'getVersion')) {
+            try {
+                $version = \Composer\InstalledVersions::getVersion('vittix/panchang');
+                if (!empty($version)) {
+                    return $version;
+                }
+            } catch (\OutOfBoundsException) {
+                // ignore and use fallback
+            }
+        }
+
+        return 'unknown';
+    }
+
+    private function cachePrefix(): string
+    {
+        return 'vittix-panchang:' . $this->getPanchangVersion();
+    }
+
+
+    /**
+     * Recursively check if a cached value (or anything nested inside it)
+     * contains an __PHP_Incomplete_Class — which happens when a cached
+     * serialized object cannot be deserialized because its class definition
+     * was not yet loaded (e.g. an array of DashaPeriod VOs).
+     */
+    private function hasIncompleteObjects(mixed $value): bool
+    {
+        if (is_object($value)) {
+            if (get_class($value) === '__PHP_Incomplete_Class') {
+                return true;
+            }
+            // Check public properties of a properly loaded object too
+            foreach (get_object_vars($value) as $prop) {
+                if ($this->hasIncompleteObjects($prop)) {
+                    return true;
+                }
+            }
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $item) {
+                if ($this->hasIncompleteObjects($item)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private function cached(string $key, callable $fn)
     {
-        return Cache::rememberForever($key, $fn);
+        $cacheKey = $this->cachePrefix() . ':' . $key;
+        $value    = Cache::get($cacheKey, null);
+
+        if ($value !== null && $this->hasIncompleteObjects($value)) {
+            Cache::forget($cacheKey);
+            $value = null;
+        }
+
+        if ($value === null) {
+            $value = $fn();
+            Cache::forever($cacheKey, $value);
+        }
+
+        return $value;
     }
 
     private function dayToArray($day, PanchangTranslator $tr): array
@@ -178,24 +245,180 @@ class DemoController
 
     public function kundali(Request $request)
     {
-        $input    = $this->getInput($request);
-        $panchang = app(Panchang::class);
-        $moment   = $this->makeMoment($input);
-        $loc      = $this->makeLocation($input);
+        $input        = $this->getInput($request);
+        $panchang     = app(Panchang::class);
+        $tab          = $request->get('tab', 'overview');
+        $currentVarga = strtoupper($request->get('varga', 'D9'));
+        $vargaOptions = ['D1', 'D2', 'D3', 'D4', 'D7', 'D9', 'D16', 'D20', 'D27', 'D30', 'D45', 'D60'];
+
+        if (!in_array($currentVarga, $vargaOptions, true)) {
+            $currentVarga = 'D9';
+        }
 
         if (!method_exists($panchang, 'kundali')) {
-            return view('hindutithi.sections.unavailable', ['feature' => 'Kundali (kundali)']);
+            return view('hindutithi.sections.kundali', [
+                'input'             => $input,
+                'featureUnavailable'=> true,
+                'tab'               => $tab,
+                'currentVarga'      => $currentVarga,
+                'vargaOptions'      => $vargaOptions,
+            ]);
         }
 
-        $key    = "panchang:kundali:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
-        $kundali = $this->cached($key, fn() => $panchang->kundali($moment, $loc));
+        $moment = $this->makeMoment($input);
+        $loc    = $this->makeLocation($input);
 
-        $houses = array_fill(1, 12, []);
-        foreach ($kundali->placements as $placement) {
-            $houses[$placement->house][] = $placement->body->name;
+        $kundaliKey = "panchang:kundali:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
+        $kundali    = $this->cached($kundaliKey, fn() => $panchang->kundali($moment, $loc));
+
+        // ── Enrich placements with computed fields ──────────────────────
+        $sunLon = null;
+        foreach ($kundali->placements as $key => $pl) {
+            if ($pl->body->name === 'Sun') {
+                $sunLon = $pl->longitude;
+                break;
+            }
         }
 
-        return view('hindutithi.sections.kundali', ['kundali' => $kundali, 'houses' => $houses, 'input' => $input]);
+        $enrichedPlacements = [];
+        $houses             = array_fill(1, 12, []);
+        foreach ($kundali->placements as $key => $pl) {
+            $abbr        = KundaliHelper::abbr($pl->body->name);
+            $nakshatraInfo = KundaliHelper::nakshatra($pl->longitude);
+            $isRetro     = KundaliHelper::isRetrograde($pl->dailyMotion ?? 0, $pl->body->name);
+            $isCombust   = $sunLon !== null
+                ? KundaliHelper::isCombust($pl->longitude, $sunLon, $pl->body->name)
+                : false;
+            $relation    = KundaliHelper::relation($pl->body->name, $pl->rashi->name);
+
+            $enrichedPlacements[$key] = [
+                'key'        => $key,
+                'name'       => $pl->body->name,
+                'abbr'       => $abbr,
+                'color'      => KundaliHelper::color($abbr),
+                'rashi'      => $pl->rashi->name,
+                'house'      => $pl->house,
+                'longitude'  => $pl->longitude,
+                'dms'        => KundaliHelper::toDMS($pl->longitude),
+                'nakshatra'  => $nakshatraInfo['name'],
+                'pada'       => $nakshatraInfo['pada'],
+                'isRetro'    => $isRetro,
+                'isCombust'  => $isCombust,
+                'relation'   => $relation,
+                'dignity'    => $pl->dignity?->name,
+                'dailyMotion'=> $pl->dailyMotion ?? 0,
+            ];
+
+            $houses[$pl->house][] = [
+                'abbr'  => $abbr,
+                'color' => KundaliHelper::color($abbr),
+            ];
+        }
+
+        // ── D9 Navamsa chart ────────────────────────────────────────────
+        $d9Lagna         = null;
+        $d9Houses        = array_fill(1, 12, []);
+        $vargaAvailable  = method_exists($panchang, 'varga') && class_exists(\Vittix\Panchang\Enum\Varga::class);
+        $d9Data          = null;
+        $vargaData       = null;
+        $vargaHouses     = [];
+
+        if ($vargaAvailable) {
+            $d9Key  = "panchang:varga:D9:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
+            $d9Data = $this->cached($d9Key, fn() => $panchang->varga($moment, $loc, \Vittix\Panchang\Enum\Varga::from('D9')));
+            $d9Lagna = $d9Data->ascendant->rashi->name;
+
+            foreach ($d9Data->placements as $key => $pl) {
+                $abbr = KundaliHelper::abbr($pl->body->name);
+                $d9Houses[$pl->house][] = [
+                    'abbr'  => $abbr,
+                    'color' => KundaliHelper::color($abbr),
+                ];
+            }
+
+            // Current varga (for other varga tab)
+            if ($currentVarga !== 'D9') {
+                $vargaKey  = "panchang:varga:{$currentVarga}:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
+                $vargaData = $this->cached($vargaKey, fn() => $panchang->varga($moment, $loc, \Vittix\Panchang\Enum\Varga::from($currentVarga)));
+            } else {
+                $vargaData = $d9Data;
+            }
+
+            if ($vargaData) {
+                $vargaHouses = array_fill(1, 12, []);
+                foreach ($vargaData->placements as $placement) {
+                    $vargaHouses[$placement->house][] = $placement->body->name;
+                }
+            }
+        }
+
+        // ── Vimshottari Dasha ───────────────────────────────────────────
+        $vimshottariAvailable = method_exists($panchang, 'vimshottariDasha');
+        $dashas               = null;
+        $dashaBalance         = '';
+        $dashaCompact         = []; // [ ['abbr' => 'Ra', 'start' => '24/7/1978'], ... ]
+
+        if ($vimshottariAvailable) {
+            $dashasKey = "panchang:vimshottari:{$moment->format(DATE_ATOM)}";
+            $dashas    = $this->cached($dashasKey, fn() => $panchang->vimshottariDasha($moment));
+
+            if (!empty($dashas)) {
+                $dashaBalance = KundaliHelper::dashaBalance($dashas, $moment);
+                foreach ($dashas as $d) {
+                    $dashaCompact[] = [
+                        'abbr'  => KundaliHelper::abbr($d->body->name),
+                        'name'  => $d->body->name,
+                        'start' => $d->start->format('j/n/Y'),
+                        'end'   => $d->end->format('j/n/Y'),
+                    ];
+                }
+            }
+        }
+
+        // ── Shadbala & Yogas ────────────────────────────────────────────
+        $shadbalaAvailable = method_exists($panchang, 'shadbala');
+        $yogasAvailable    = method_exists($panchang, 'yogas');
+        $shadbala          = null;
+        $yogas             = null;
+
+        if ($shadbalaAvailable) {
+            $shadbalaKey = "panchang:shadbala:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
+            $shadbala    = $this->cached($shadbalaKey, fn() => $panchang->shadbala($moment, $loc));
+        }
+
+        if ($yogasAvailable) {
+            $yogasKey = "panchang:yogas:{$moment->format(DATE_ATOM)}:{$loc->latitude}:{$loc->longitude}";
+            $yogas    = $this->cached($yogasKey, fn() => $panchang->yogas($moment, $loc));
+        }
+
+        // ── Lagna details ───────────────────────────────────────────────
+        $lagnaRashi  = $kundali->ascendant->rashi->name;
+        $lagnaDMS    = KundaliHelper::degToDMS($kundali->ascendant->degreeInSign);
+
+        return view('hindutithi.sections.kundali', [
+            'kundali'             => $kundali,
+            'enrichedPlacements'  => $enrichedPlacements,
+            'houses'              => $houses,
+            'lagnaRashi'          => $lagnaRashi,
+            'lagnaDMS'            => $lagnaDMS,
+            'd9Lagna'             => $d9Lagna,
+            'd9Houses'            => $d9Houses,
+            'dashaBalance'        => $dashaBalance,
+            'dashaCompact'        => $dashaCompact,
+            'input'               => $input,
+            'tab'                 => $tab,
+            'currentVarga'        => $currentVarga,
+            'vargaOptions'        => $vargaOptions,
+            'dashas'              => $dashas,
+            'shadbala'            => $shadbala,
+            'yogas'               => $yogas,
+            'vargaData'           => $vargaData,
+            'vargaHouses'         => $vargaHouses,
+            'vimshottariAvailable'=> $vimshottariAvailable,
+            'shadbalaAvailable'   => $shadbalaAvailable,
+            'yogasAvailable'      => $yogasAvailable,
+            'vargaAvailable'      => $vargaAvailable,
+        ]);
     }
 
     public function varga(Request $request)

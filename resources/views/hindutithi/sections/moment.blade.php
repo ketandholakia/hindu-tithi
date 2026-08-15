@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Panchang at a Moment — Exact Planetary Positions | Hindutithi')
+@section('meta_description', 'Exact Panchang and planetary positions for a chosen date and time using the Vittix Vedic Panchang engine.')
+
 @section('content')
 <div class="space-y-6">
     <div>

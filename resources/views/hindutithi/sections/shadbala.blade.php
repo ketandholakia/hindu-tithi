@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Shadbala — Planetary Strength Calculator | Hindutithi')
+@section('meta_description', 'Shadbala planetary strength breakdown (Sthana, Dik, Kala, Chesta, Naisargika, Drik) computed from your birth data.')
+
 @section('content')
-    <h2>Shadbala (Planetary Strength)</h2>
+    <h1>Shadbala (Planetary Strength)</h1>
     <table class="table table-sm">
         <thead><tr><th>Planet</th><th>StS</th><th>Dik</th><th>Kala</th><th>Chesta</th><th>Naisargika</th><th>Drik</th><th>Total (Rupas)</th></tr></thead>
         <tbody>

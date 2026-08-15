@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Daily Panchang — ' . \Illuminate\Support\Carbon::parse($day['date'])->format('d M Y') . ' | Hindutithi')
+@section('meta_description', 'Sunrise-based daily Panchang for ' . \Illuminate\Support\Carbon::parse($day['date'])->format('d M Y') . ' — tithi, nakshatra, yoga, karana and vara for the selected location.')
+
 @section('content')
 <div class="space-y-6">
     {{-- Page header --}}
@@ -74,7 +77,7 @@
                     <span class="text-sm text-slate-400">{{ $label }}</span>
                     <span class="text-sm font-medium text-white">
                         @if($value)
-                            @if(str_contains($value, 'T') || str_contains($value, ':'))
+                            @if(preg_match('/^\d{4}-\d{2}-\d{2}/', $value) || preg_match('/^\d{2}:\d{2}/', $value))
                                 {{ \Illuminate\Support\Carbon::parse($value)->format('Y-m-d H:i') }}
                             @else
                                 {{ $value }}

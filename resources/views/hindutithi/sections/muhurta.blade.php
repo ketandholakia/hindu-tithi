@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Muhurta — Auspicious Day Timings | Hindutithi')
+@section('meta_description', 'Daytime muhurta windows computed from sunrise and sunset for the selected date and location.')
+
 @section('content')
-    <h2>Muhurta</h2>
-    <h5>Day Muhurtas</h5>
+    <h1>Muhurta</h1>
+    <h2>Day Muhurtas</h2>
     @php
         $sunrise = $day['solarEvents']['sunrise'] ? new \DateTimeImmutable($day['solarEvents']['sunrise']) : null;
         $sunset = $day['solarEvents']['sunset'] ? new \DateTimeImmutable($day['solarEvents']['sunset']) : null;

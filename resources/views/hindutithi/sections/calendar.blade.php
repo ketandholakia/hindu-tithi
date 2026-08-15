@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Hindu Calendar Summary — Lunar Month, Moon Phases | Hindutithi')
+@section('meta_description', 'Hindu calendar summary with lunar month, moon phases and Vikram Samvat years for the selected date and timezone.')
+
 @section('content')
 <div class="space-y-6">
     <div>

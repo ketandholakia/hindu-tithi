@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Janmarashi — Moon Sign (Rashi) Calculator | Hindutithi')
+@section('meta_description', 'Find your Janmarashi (moon sign / Rashi) for any birth date and time with the Vittix Vedic Panchang engine.')
+
 @section('content')
 <div class="space-y-6">
     <div>

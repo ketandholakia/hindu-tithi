@@ -1,2 +1,20 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /api-keys
+Disallow: /day
+Disallow: /moment
+Disallow: /janmarashi
+Disallow: /ascendant
+Disallow: /varga
+Disallow: /vimshottari
+Disallow: /shadbala
+Disallow: /yogas
+Disallow: /muhurta
+Disallow: /electional
+Disallow: /*?tab=
+Disallow: /*?varga=
+Disallow: /*?date=
+
+Sitemap: http://hindutithi:8080/sitemap.xml

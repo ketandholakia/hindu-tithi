@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Vittix Vedic Panchang API
+  description: API documentation for Panchang, Kundli, planetary positions, muhurta, festivals, and Hindu calendar calculations.
+  version: 1.0.0
+servers:
+  - url: https://hindutithi.in
+    description: Production server
+  - url: http://localhost:8000
+    description: Local development server
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+security:
+  - ApiKeyAuth: []
+paths:
+  /api/day:
+    get:
+      summary: Get Daily Panchang
+      description: Returns tithi, nakshatra, yoga, karana, sunrise, sunset, and other daily panchang calculations.
+      parameters: &standardParams
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+          required: false
+          description: Date for calculation (YYYY-MM-DD). Defaults to today if not provided.
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: false
+          description: City name or coordinates. Defaults to New Delhi.
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized. Missing or invalid X-API-KEY.
+          
+  /api/moment:
+    get:
+      summary: Exact Instant Calculation
+      description: Get detailed panchang for a specific exact date and time.
+      parameters:
+        - in: query
+          name: datetime
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: Exact date and time (ISO 8601). Defaults to now.
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: false
+          description: City name or coordinates.
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/calendar:
+    get:
+      summary: Festival & Calendar Data
+      description: Returns Hindu calendar and festival data for a given month or year.
+      parameters:
+        - in: query
+          name: year
+          schema:
+            type: integer
+          required: false
+          description: Year for calculation.
+        - in: query
+          name: month
+          schema:
+            type: integer
+          required: false
+          description: Month for calculation.
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/muhurta:
+    get:
+      summary: Muhurta Calculations
+      description: Returns Rahu Kalam, Yamaganda, Abhijit, Brahma Muhurta, and Choghadiya.
+      parameters: *standardParams
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/electional:
+    get:
+      summary: Electional Astrology
+      description: Evaluate auspicious times for specific activities.
+      parameters: *standardParams
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/astrology/kundli:
+    get:
+      summary: Birth Chart Generation
+      description: Generate planetary positions, Ascendant, Rashi, and Navamsha charts.
+      parameters:
+        - in: query
+          name: datetime
+          schema:
+            type: string
+            format: date-time
+          required: true
+          description: Exact date and time of birth (ISO 8601).
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: true
+          description: City name or coordinates of birth.
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/astrology/yogas:
+    get:
+      summary: Astrological Yogas
+      description: Detect standard astrological combinations (Yogas) in a chart.
+      parameters:
+        - in: query
+          name: datetime
+          schema:
+            type: string
+            format: date-time
+          required: true
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/astrology/shadbala:
+    get:
+      summary: Planetary Strengths (Shadbala)
+      description: Calculate the six-fold strength of planets.
+      parameters:
+        - in: query
+          name: datetime
+          schema:
+            type: string
+            format: date-time
+          required: true
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+
+  /api/astrology/dasha:
+    get:
+      summary: Vimshottari Dasha
+      description: Calculate planetary periods (Dasha, Bhukti, Antara).
+      parameters:
+        - in: query
+          name: datetime
+          schema:
+            type: string
+            format: date-time
+          required: true
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized

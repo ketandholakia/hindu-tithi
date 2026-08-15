@@ -13,8 +13,13 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'panchang.api.key' => \App\Http\Middleware\RequirePanchangApiKey::class,
+            'auth.api_token' => \App\Http\Middleware\AuthenticateApiToken::class,
+            'throttle.api_token' => \App\Http\Middleware\ThrottleApiToken::class,
+            'log.api_usage' => \App\Http\Middleware\LogApiUsage::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

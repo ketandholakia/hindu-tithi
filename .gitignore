@@ -25,3 +25,20 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Laravel Database
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# Laravel Storage
+/storage/framework/cache/data/
+/storage/framework/sessions/
+/storage/framework/testing/
+/storage/framework/views/
+/storage/logs/
+
+# Third Party / OS
+sync.ffs_db
+sync.ffs_lock
+npm-debug.log
+yarn-error.log

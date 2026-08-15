@@ -5,6 +5,11 @@
 
     RewriteEngine On
 
+    # Force HTTPS except local dev on port 8080
+    RewriteCond %{HTTPS} off
+    RewriteCond %{SERVER_PORT} !^8080$
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Electional Astrology Checks | Hindutithi')
+@section('meta_description', 'Electional astrology checks including Amrit Siddhi, Sarvartha Siddhi, Guru Pushya and Panchak Dosha.')
+
 @section('content')
-    <h2>Electional Checks</h2>
+    <h1>Electional Checks</h1>
     <p>Moment: {{ $moment->format(DATE_ATOM) }}</p>
     <p>Electional evaluator instance available.</p>
     <div class="card">

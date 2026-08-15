@@ -67,7 +67,11 @@
             <label for="api-key">X-API-KEY</label>
             <input id="api-key" type="password" placeholder="Enter API key">
             <button id="save-key" type="button">Authorize</button>
-            <button id="clear-key" type="button">Clear</button>
+            <button id="clear-key" type="button" style="background: #334155;">Clear</button>
+            
+            <a href="{{ route('register') }}" style="margin-left: auto; display: inline-block; padding: 10px 14px; background: #eab308; color: #111827; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px;">
+                Get Free API Key
+            </a>
         </div>
     </div>
     <div id="swagger-ui"></div>

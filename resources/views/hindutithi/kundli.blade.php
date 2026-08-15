@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Kundli / Birth Chart Generator Demo | Hindutithi')
+@section('meta_description', 'Generate a Kundli birth chart with planetary positions, ascendant, houses and Rashi information from your birth date, time and location.')
+
 @section('content')
     <div class="space-y-8">
         <section class="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-600 p-8 shadow-2xl">
