@@ -78,7 +78,7 @@ class TelegramBotService
 
     private function sendHelp(int|string $chatId): void
     {
-        $help = "🙏 *Welcome to Vittix Panchang Bot!*\n\n"
+        $help = "🙏 *Welcome to Tithi Darshan Bot!*\n\n"
               . "Available commands:\n"
               . "👉 `/panchang [date] [lat,lon]`\n"
               . "Gets the daily Panchang. Defaults to today at New Delhi.\n"
@@ -855,7 +855,7 @@ class TelegramBotService
         return Cache::remember($cacheKey, now()->addDays(30), function () use ($lat, $lon) {
             try {
                 $response = Http::timeout(5)->withHeaders([
-                    'User-Agent' => 'Hindutithi-Telegram-Bot/1.0 (contact@hindutithi.in)',
+                    'User-Agent' => 'TithiDarshan-Telegram-Bot/1.0',
                     'Accept-Language' => 'en',
                 ])->get('https://nominatim.openstreetmap.org/reverse', [
                     'format' => 'jsonv2',
