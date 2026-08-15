@@ -1,5 +1,25 @@
 # Tithi Darshan Bot - Complete User Guide
 
+```
+█████████████████████████████████
+█████████████████████████████████
+████ ▄▄▄▄▄ █▀▀ ▀ ▄▀  █ ▄▄▄▄▄ ████
+████ █   █ █▄▀▄ ██▄███ █   █ ████
+████ █▄▄▄█ █ ▄▀█▄▀ ▄▄█ █▄▄▄█ ████
+████▄▄▄▄▄▄▄█ █ █▄▀ ▀ █▄▄▄▄▄▄▄████
+████▄ █▄▀▀▄ ▀▀██▄█▄▄ ▀  ▄█▄▄▀████
+████   ▀▀ ▄▀▀▀▀ ▀▄█▀▀▄▀▄ ██▄▄████
+████▄ ▀   ▄  ▀▄█▄▄ ▄    █ ▀▄ ████
+████▄▀█▀▄▀▄█▄▀▀ █ ▄▄▀██▄ █▄▀▄████
+████▄▄▄█▄█▄▄ ▀█▀▄▄   ▄▄▄  ▄█▀████
+████ ▄▄▄▄▄ █▄ ▄▄▀ █▄ █▄█  ▀ ▄████
+████ █   █ █▀ ██▄▄▀▀▄▄▄   ▀▀█████
+████ █▄▄▄█ █▀▀▀ ▄▀ ▀▀▀█▄▄▀▄█▄████
+████▄▄▄▄▄▄▄█▄▄██▄█▄█▄▄▄▄███▄▄████
+█████████████████████████████████
+█████████████████████████████████
+```
+
 Welcome to the **Tithi Darshan Bot**! This bot brings the full power of the `vittix/panchang` Vedic Astrology engine directly to your Telegram chats. 
 
 You can ask the bot for daily panchang details, generate Kundlis, find upcoming festivals, calculate auspicious muhurtas, and much more!
