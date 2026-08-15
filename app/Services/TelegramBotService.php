@@ -109,7 +109,7 @@ class TelegramBotService
                 }
             }
 
-            $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
+            $date = $this->parseDate($dateStr);
             $location = new GeoLocation((float)$lat, (float)$lon, 0);
             $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
@@ -152,7 +152,7 @@ class TelegramBotService
                 [$lat, $lon] = explode(',', $args[2]);
             }
 
-            $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
+            $date = $this->parseDate($dateStr);
             $location = new GeoLocation((float)$lat, (float)$lon, 0);
             $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
@@ -214,7 +214,7 @@ class TelegramBotService
                 }
             }
 
-            $date = \Carbon\Carbon::parse($dateStr)->timezone('Asia/Kolkata');
+            $date = $this->parseDate($dateStr);
             $location = new GeoLocation((float)$lat, (float)$lon, 0);
             $datetime = new DateTimeImmutable($date->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Kolkata'));
 
@@ -281,5 +281,21 @@ class TelegramBotService
         if (!$response->successful()) {
             Log::error("Telegram API Error: " . $response->body());
         }
+    }
+
+    /**
+     * Parse date string flexibly supporting YYYY-MM-DD and DD-MM-YYYY formats.
+     */
+    private function parseDate(string $dateStr): \Carbon\Carbon
+    {
+        if (strtolower($dateStr) === 'today') {
+            return \Carbon\Carbon::today('Asia/Kolkata');
+        }
+
+        // Standardize slashes to dashes so PHP correctly treats DD-MM-YYYY (European) 
+        // rather than trying to parse MM/DD/YYYY (American) and failing.
+        $standardized = str_replace('/', '-', $dateStr);
+
+        return \Carbon\Carbon::parse($standardized)->timezone('Asia/Kolkata');
     }
 }
