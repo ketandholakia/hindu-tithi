@@ -10,7 +10,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 flex justify-center">
             <a href="/whats-new" class="group flex items-center gap-3 rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]/50 px-4 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] transition hover:bg-[var(--color-bg-elevated)] backdrop-blur-md">
                 <span class="text-[var(--color-brand-saffron)]">✦</span>
-                <span>Version 2.4.0 is now available — Multilingual support + expanded festival calculations</span>
+                <span>Version 2.6.0 is now available — Multilingual Panchang API + improved accuracy and caching</span>
                 <span class="text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] transition">Read release notes &rarr;</span>
             </a>
         </div>

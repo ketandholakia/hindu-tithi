@@ -1,6 +1,25 @@
 <form method="POST" action="{{ route('hindutithi.setBirth') }}" class="rounded-2xl border border-white/10 bg-slate-900/70 p-5 backdrop-blur">
     @csrf
 
+    @include('hindutithi.partials.place_search')
+    @auth
+        @php($savedLocations = auth()->user()->panchangLocations()->orderBy('name')->get())
+        @if($savedLocations->isNotEmpty())
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+                <label for="saved-location" class="text-xs text-slate-400">Saved location</label>
+                <select id="saved-location" data-saved-location class="max-w-full rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-xs text-white">
+                    <option value="">Choose a saved place…</option>
+                    @foreach($savedLocations as $savedLocation)
+                        <option value="{{ $savedLocation->id }}" data-lat="{{ $savedLocation->latitude }}" data-lon="{{ $savedLocation->longitude }}" data-elev="{{ $savedLocation->elevation_meters }}" data-tz="{{ $savedLocation->timezone }}">{{ $savedLocation->name }}</option>
+                    @endforeach
+                </select>
+                <a href="{{ route('locations.index') }}" class="text-xs text-amber-300 hover:text-amber-200">Manage</a>
+            </div>
+        @endif
+    @else
+        <div class="mt-3"><a href="{{ route('login') }}" class="text-xs text-amber-300 hover:text-amber-200">Sign in to save places for later</a></div>
+    @endauth
+
     {{-- ── Section header ─────────────────────────────────────────── --}}
     <div class="mb-4 flex items-center gap-2">
         <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>

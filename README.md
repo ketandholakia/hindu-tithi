@@ -83,7 +83,7 @@ A Laravel application that showcases the `vittix/panchang` package — Daily Pan
 | Layer | Technology |
 |---|---|
 | Backend | PHP 8.3 · Laravel ^13.8 |
-| Astrology engine | `vittix/panchang ^2.4` |
+| Astrology engine | `vittix/panchang ^2.4` (2.6.0 installed) |
 | Auth scaffolding | Laravel Breeze ^2.4 |
 | Frontend styling | Tailwind CSS **v4.1** (via `@tailwindcss/vite`, with `@tailwindcss/forms`) |
 | JS interactivity | Alpine.js ^3.4 |

@@ -14,6 +14,12 @@ Route::get('/sitemap.xml', function () {
     $urls = [
         route('hindutithi.home'),
         route('hindutithi.kundli'),
+        route('hindutithi.choghadiya'),
+        route('hindutithi.timeline'),
+        route('hindutithi.sankranti'),
+        route('hindutithi.astronomy'),
+        route('hindutithi.moon-sign'),
+        route('hindutithi.electional'),
         route('hindutithi.accuracy'),
         route('hindutithi.astrology'),
         route('hindutithi.help'),
@@ -61,14 +67,22 @@ Route::get('/openapi.yaml', function () {
     ]);
 });
 
+Route::get('/location-search', [App\Http\Controllers\PanchangLocationController::class, 'search'])
+    ->middleware('throttle:20,1')->name('locations.search');
+
 Route::post('/set-birth', [DemoController::class, 'setBirth'])->name('hindutithi.setBirth');
 
 Route::get('/kundli', [DemoController::class, 'kundali'])->name('hindutithi.kundli');
 
 Route::middleware([NoCache::class])->group(function () {
-    foreach (['day','moment','janmarashi','ascendant','varga','vimshottari','shadbala','yogas','calendar','muhurta','electional'] as $s) {
+    foreach (['day','moment','janmarashi','ascendant','varga','vimshottari','shadbala','yogas','calendar','muhurta','choghadiya'] as $s) {
         Route::get("/$s", [DemoController::class, $s])->name("hindutithi.$s");
     }
+    Route::get('/timeline', [App\Http\Controllers\WebAdvancedPanchangController::class, 'timeline'])->name('hindutithi.timeline');
+    Route::get('/sankranti', [App\Http\Controllers\WebAdvancedPanchangController::class, 'sankranti'])->name('hindutithi.sankranti');
+    Route::get('/astronomy', [App\Http\Controllers\WebAdvancedPanchangController::class, 'astronomy'])->name('hindutithi.astronomy');
+    Route::get('/moon-sign', [App\Http\Controllers\WebAdvancedPanchangController::class, 'moonSign'])->name('hindutithi.moon-sign');
+    Route::get('/electional', [App\Http\Controllers\WebAdvancedPanchangController::class, 'electional'])->name('hindutithi.electional');
     Route::get("/festivals", [\App\Http\Controllers\FestivalController::class, 'index'])->name("hindutithi.festivals");
 });
 
@@ -77,6 +91,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/reminders', [App\Http\Controllers\PanchangReminderController::class, 'edit'])->name('reminders.edit');
+    Route::put('/reminders', [App\Http\Controllers\PanchangReminderController::class, 'update'])->name('reminders.update');
+    Route::get('/birth-profiles', [App\Http\Controllers\BirthProfileController::class, 'index'])->name('birth-profiles.index');
+    Route::post('/birth-profiles', [App\Http\Controllers\BirthProfileController::class, 'store'])->name('birth-profiles.store');
+    Route::delete('/birth-profiles/{profile}', [App\Http\Controllers\BirthProfileController::class, 'destroy'])->name('birth-profiles.destroy');
+    Route::get('/locations', [App\Http\Controllers\PanchangLocationController::class, 'index'])->name('locations.index');
+    Route::post('/locations', [App\Http\Controllers\PanchangLocationController::class, 'store'])->name('locations.store');
+    Route::delete('/locations/{location}', [App\Http\Controllers\PanchangLocationController::class, 'destroy'])->name('locations.destroy');
     Route::get('/api-keys', [App\Http\Controllers\ApiKeyController::class, 'index'])->name('api.keys.index');
     Route::post('/api-keys', [App\Http\Controllers\ApiKeyController::class, 'store'])->name('api.keys.store');
     Route::delete('/api-keys/{apiKey}', [App\Http\Controllers\ApiKeyController::class, 'destroy'])->name('api.keys.destroy');

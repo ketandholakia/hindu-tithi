@@ -15,6 +15,15 @@
                     <a href="{{ route('hindutithi.day') }}" class="text-sm font-medium transition {{ request()->routeIs('hindutithi.day') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">Panchang</a>
                     <a href="{{ route('hindutithi.astrology') }}" class="text-sm font-medium transition {{ request()->routeIs('hindutithi.astrology') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">Astrology</a>
                     <a href="{{ route('hindutithi.festivals') }}" class="text-sm font-medium transition {{ request()->routeIs('hindutithi.festivals') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">Festivals</a>
+                    <a href="{{ route('hindutithi.choghadiya') }}" class="text-sm font-medium transition {{ request()->routeIs('hindutithi.choghadiya') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">Choghadiya</a>
+                    <details class="relative group">
+                        <summary class="cursor-pointer list-none text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Tools</summary>
+                        <div class="absolute left-0 top-full z-50 mt-3 w-48 rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-2 shadow-xl">
+                            @foreach([['hindutithi.timeline', 'Panchang Timeline'], ['hindutithi.sankranti', 'Sankranti'], ['hindutithi.astronomy', 'Astronomy'], ['hindutithi.moon-sign', 'Moon Sign']] as [$toolRoute, $toolLabel])
+                                <a href="{{ route($toolRoute) }}" class="block rounded-lg px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]">{{ $toolLabel }}</a>
+                            @endforeach
+                        </div>
+                    </details>
                     <a href="{{ route('api.docs') }}" class="text-sm font-medium transition {{ request()->routeIs('api.docs') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">API Docs</a>
                     <a href="{{ route('hindutithi.accuracy') }}" class="text-sm font-medium transition {{ request()->routeIs('hindutithi.accuracy') ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]' }}">Accuracy</a>
                 </div>
@@ -41,6 +50,9 @@
                             <x-dropdown-link :href="route('admin.dashboard')">{{ __('Admin Dashboard') }}</x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
                             <x-dropdown-link :href="route('api.keys.index')">{{ __('API Keys') }}</x-dropdown-link>
+                            <x-dropdown-link :href="route('locations.index')">{{ __('Saved Locations') }}</x-dropdown-link>
+                            <x-dropdown-link :href="route('birth-profiles.index')">{{ __('Birth Profiles') }}</x-dropdown-link>
+                            <x-dropdown-link :href="route('reminders.edit')">{{ __('Reminders') }}</x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
@@ -75,6 +87,11 @@
                 ['hindutithi.day',      'Panchang'],
                 ['hindutithi.astrology','Astrology'],
                 ['hindutithi.festivals','Festivals'],
+                ['hindutithi.choghadiya','Choghadiya'],
+                ['hindutithi.timeline','Panchang Timeline'],
+                ['hindutithi.sankranti','Sankranti'],
+                ['hindutithi.astronomy','Astronomy'],
+                ['hindutithi.moon-sign','Moon Sign'],
                 ['api.docs',            'API Docs'],
                 ['hindutithi.accuracy', 'Accuracy'],
             ] as [$route, $label])
@@ -95,6 +112,9 @@
                 <a href="{{ route('admin.dashboard') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Admin Dashboard</a>
                 <a href="{{ route('profile.edit') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Profile</a>
                 <a href="{{ route('api.keys.index') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">API Keys</a>
+                <a href="{{ route('locations.index') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Saved Locations</a>
+                <a href="{{ route('birth-profiles.index') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Birth Profiles</a>
+                <a href="{{ route('reminders.edit') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Reminders</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="block w-full text-left rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]">Log Out</button>

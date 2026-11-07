@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(ApiKey::class);
     }
+
+    public function panchangLocations(): HasMany
+    {
+        return $this->hasMany(PanchangLocation::class);
+    }
+
+    public function birthProfiles(): HasMany
+    {
+        return $this->hasMany(BirthProfile::class);
+    }
+
+    public function panchangReminderSetting(): HasOne
+    {
+        return $this->hasOne(PanchangReminderSetting::class);
+    }
+
 }

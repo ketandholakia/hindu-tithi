@@ -544,6 +544,33 @@ class DemoController
         return view('hindutithi.sections.muhurta', ['muhurta' => $muhurta, 'day' => $day, 'input' => $input]);
     }
 
+    public function choghadiya(Request $request)
+    {
+        $input = $this->getInput($request);
+        $timezone = new DateTimeZone($input['tz']);
+        $date = new DateTimeImmutable($input['date'] . ' 12:00:00', $timezone);
+        $location = $this->makeLocation($input);
+        $panchang = app(Panchang::class);
+        $day = $panchang->day($date, $location);
+        $nextDay = $panchang->day($date->modify('+1 day'), $location);
+
+        $dayWindows = [];
+        $nightWindows = [];
+        if ($day->solarEvents->sunrise && $day->solarEvents->sunset && $nextDay->solarEvents->sunrise) {
+            $calculator = $panchang->muhurta();
+            $weekday = (int) $date->format('w');
+            $dayWindows = $calculator->getDayChoghadiya($day->solarEvents->sunrise, $day->solarEvents->sunset, $weekday);
+            $nightWindows = $calculator->getNightChoghadiya($day->solarEvents->sunset, $nextDay->solarEvents->sunrise, $weekday);
+        }
+
+        return view('hindutithi.sections.choghadiya', [
+            'input' => $input,
+            'date' => $date,
+            'dayWindows' => $dayWindows,
+            'nightWindows' => $nightWindows,
+        ]);
+    }
+
     public function electional(Request $request)
     {
         $input    = $this->getInput($request);

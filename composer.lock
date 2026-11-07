@@ -5843,16 +5843,16 @@
         },
         {
             "name": "vittix/panchang",
-            "version": "2.4.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ketandholakia/Vittix-Vedic-Panchang.git",
-                "reference": "189cb15439f29d77a62a46326fc8fdbb22771994"
+                "reference": "67da294769fd500739f9e98aa0fbb4c63dc653ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ketandholakia/Vittix-Vedic-Panchang/zipball/189cb15439f29d77a62a46326fc8fdbb22771994",
-                "reference": "189cb15439f29d77a62a46326fc8fdbb22771994",
+                "url": "https://api.github.com/repos/ketandholakia/Vittix-Vedic-Panchang/zipball/67da294769fd500739f9e98aa0fbb4c63dc653ac",
+                "reference": "67da294769fd500739f9e98aa0fbb4c63dc653ac",
                 "shasum": ""
             },
             "require": {
@@ -5900,7 +5900,7 @@
                 "issues": "https://github.com/ketandholakia/Vittix-Vedic-Panchang/issues",
                 "source": "https://github.com/ketandholakia/Vittix-Vedic-Panchang"
             },
-            "time": "2026-08-13T15:07:10+00:00"
+            "time": "2026-10-22T02:57:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
